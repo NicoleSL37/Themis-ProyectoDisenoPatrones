@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+        <link rel="shortcut icon" href="/img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Themis" />
+        <link rel="manifest" href="../site.webmanifest" />
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/encabezado.css">
+    <link rel="stylesheet" href="../css/Denuncias/anonimo.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <title>Denuncia Anónima</title>
+</head>
+
+<body>
+    <header class="encabezado-principal">
+        <div class="contenedor-themis">
+                <a href="../html/paginaPrincipal.html" class="logo-link"><img src="../img/logo_themis.png" alt="Logo de Themis">
+                <span>Themis</span>
+                </a><div class="barra-separadora-izq"></div>
+            </div>
+        <div class="buscador-encabezado">
+            <input type="text">
+            <button>
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </div>
+        <div class="barra-separadora-der"></div>
+        <button class="user-icon">
+            <span class="material-symbols-outlined">account_circle</span>
+        </button>
+        <button class="olympus-coso">
+            <span class="material-symbols-outlined">account_balance</span>
+        </button>
+    </header>
+    <main>
+        <div class="contenedor-pagina">
+            <div class="form-contenedor">
+
+                <section class="seccion-anonimo">
+                    <h2 class="anonimo-titulo">Denuncia Anónima</h2>
+                    <p class="anonimo-sub">Tu identidad será confidencial. Por favor describe los hechos con el mayor
+                        detalle posible.</p>
+                </section>
+
+                <div class="form-section active" id="section-denuncia-anonima">
+
+                    <div class="form-subsection">
+                        <div class="linea-horizontal top-line"></div>
+                        <h4 class="seccion-titulo">Información de Contacto (Opcional):</h4>
+                        <div class="linea-horizontal bottom-line"></div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="correo-electronico-anonimo">Correo electrónico: (Opcional)</label>
+                                <input type="email" id="correo-electronico-anonimo" name="correo-electronico-anonimo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-subsection">
+                        <div class="linea-horizontal top-line"></div>
+                        <h4 class="seccion-titulo">Fecha y Hora del Incidente:</h4>
+                        <div class="linea-horizontal bottom-line"></div>
+                        <div class="form-row three-columns">
+                            <div class="form-group">
+                                <label for="fecha-incidente-anonimo">Fecha:</label>
+                                <div class="input-with-icon">
+                                    <input type="date" id="fecha-incidente-anonimo" name="fecha-incidente-anonimo"
+                                        placeholder="DD/MM/YYYY">
+                                    <span class="material-symbols-outlined calendar-icon">calendar_month</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="hora-incidente-anonimo">Hora:</label>
+                                <div class="input-with-icon">
+                                    <input type="time" id="hora-incidente-anonimo" name="hora-incidente-anonimo">
+                                    <span class="material-symbols-outlined clock-icon">schedule</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ahora-incidente-anonimo">Ahora:</label>
+                                <input type="checkbox" id="ahora-incidente-anonimo" name="ahora-incidente-anonimo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-subsection">
+                        <div class="linea-horizontal top-line"></div>
+                        <h4 class="seccion-titulo">Ubicación del Incidente:</h4>
+                        <div class="linea-horizontal bottom-line"></div>
+                        <div class="form-row three-columns">
+                            <div class="form-group">
+                                <label for="departamento-anonimo">Departamento:</label>
+                                <select id="departamento-anonimo" class="form-control" required>
+                                    <option value="">Seleccione Departamento</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="provincia-anonimo">Provincia:</label>
+                                <select id="provincia-anonimo" class="form-control" required disabled>
+                                    <option value="">Seleccione Provincia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="distrito-anonimo">Distrito:</label>
+                                <select id="distrito-anonimo" class="form-control" required disabled>
+                                    <option value="">Seleccione Distrito</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-subsection">
+                        <div class="linea-horizontal top-line"></div>
+                        <h4 class="seccion-titulo">Descripción de los hechos:</h4>
+                        <div class="linea-horizontal bottom-line"></div>
+                        <p class="section-description-text">
+                            Ingrese la descripción de los hechos de su queja o denuncia, incluya nombres completos de
+                            los involucrados si los tuviera, así como toda la información que sea relevante. Se sugiere
+                            considerar en la narración de los hechos el nombre, sobre nombre y/o características físicas
+                            del denunciado; así como, el nombre y/o características físicas de la víctima.
+                        </p>
+                        <div class="form-group full-width">
+                            <textarea id="descripcion-hechos-anonimo" name="descripcion-hechos-anonimo" rows="8"
+                                placeholder="Escriba aquí los detalles del incidente..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-subsection">
+                        <h4 class="subsection-title">En caso cuente con pruebas como fotos, audios, documentos o videos,
+                            adjúntelos a continuación:</h4>
+                        <div class="form-group full-width file-upload-area" id="file-upload-area">
+                            <input type="file" id="archivos-evidencia-anonimo" name="archivos-evidencia-anonimo"
+                                multiple style="display: none;">
+                            <p>Arrastre sus archivos o presione aquí para cargarlos desde su computadora.</p>
+                            <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                            <div id="file-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" id="btn-registrar-denuncia-anonima" class="btn-btn-primary">Registrar
+                            Denuncia</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../javascript/anonima.js"></script>
+    <div id="denunciaSuccessModal" class="denuncia-success-modal-backdrop">
+        <div class="denuncia-success-modal-content">
+            <span class="denuncia-success-close-button">&times;</span>
+            <h2>¡Denuncia Recibida!</h2>
+            <p>Gracias por su confianza. Su denuncia ha sido registrada con éxito.</p>
+            <button id="modal-ok-button" class="btn btn-primary">Aceptar</button>
+        </div>
+    </div>
+</body>
+
+</html>

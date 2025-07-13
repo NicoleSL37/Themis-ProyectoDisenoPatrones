@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Themis" />
+        <link rel="manifest" href="../site.webmanifest" />
+    <title>Themis | Educación y Recursos</title>
+    <link rel="stylesheet" href="../css/encabezado.css">
+    <link rel="stylesheet" href="../css/Educación/educacion.css">
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+    <body>
+        <header class="encabezado-principal">
+            <div class="contenedor-themis">
+                <a href="../html/paginaPrincipal.html" class="logo-link"><img src="../img/logo_themis.png" alt="Logo de Themis">
+                <span>Themis</span>
+                </a><div class="barra-separadora-izq"></div>
+            </div>
+            <div class="buscador-encabezado">
+                <input type="text">
+                <button class="boton-busqueda">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <div class="barra-separadora-der"></div>
+            <button class="buscar-icon">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+            <button class="user-icon">
+                <span class="material-symbols-outlined">account_circle</span>
+            </button>
+            <button class="olympus-coso">
+                <span class="material-symbols-outlined">account_balance</span>
+            </button>
+        </header>
+            <main>
+            <section class="seccion-educacion">
+                <div class="contenido-educacion">
+                    <div class="header-educacion">
+                        <div class="titulo-con-lineas">
+                            <div class="linea-arriba"></div>
+                            <h1 class="titulo-principal-educacion">
+                                Aprende sobre tus derechos y el Proceso de Denuncia
+                            </h1>
+                            <div class="linea-abajo"></div>
+                        </div>
+                        
+                        <nav class="menu-pestañas">
+                            <a href="#" class="pestaña-item" data-target="guias-content">Guías y Manuales</a>
+                            <span class="separador-pestaña"></span>
+                            <a href="#" class="pestaña-item" data-target="videos-content">Videos Educativos</a>
+                            <span class="separador-pestaña"></span>
+                            <a href="#" class="pestaña-item" data-target="asesoria-content">Asesoría Virtual</a>
+                        </nav>
+                    </div>
+
+                    <div class="contenedor-tarjetas-recurso" id="guias-content">
+                        <div class="tarjeta-recurso">
+                            <div class="tarjeta-header">
+                                <div class="tarjeta-icono-wrapper">
+                                    <span class="material-symbols-outlined icono-recurso icono-rojo">
+                                        picture_as_pdf
+                                    </span>
+                                </div>
+                                <h2 class="tarjeta-titulo-recurso">Guía para Denuncias</h2>
+                            </div>
+                            <p class="tarjeta-descripcion-recurso">
+                                Guía completa que te lleva paso a paso por el proceso de presentación de una denuncia, desde los requisitos hasta el llenado del formulario.
+                            </p>
+                            <button class="tarjeta-boton-recurso">
+                                Ver Guía
+                            </button>
+                        </div>
+            
+                        <div class="tarjeta-recurso">
+                            <div class="tarjeta-header">
+                                <div class="tarjeta-icono-wrapper">
+                                    <span class="material-symbols-outlined icono-recurso icono-azul">
+                                        movie
+                                    </span>
+                                </div>
+                                <h2 class="tarjeta-titulo-recurso">Video Tutorial</h2>
+                            </div>
+                            <p class="tarjeta-descripcion-recurso">
+                                Visualiza una demostración práctica y rápida de cómo usar la plataforma para registrar y enviar tu denuncia de forma sencilla.
+                            </p>
+                            <button class="tarjeta-boton-recurso">
+                                Reproducir
+                            </button>
+                        </div>
+            
+                        <div class="tarjeta-recurso">
+                            <div class="tarjeta-header">
+                                <div class="tarjeta-icono-wrapper">
+                                    <span class="material-symbols-outlined icono-recurso icono-negro">
+                                        groups
+                                    </span>
+                                </div>
+                                <h2 class="tarjeta-titulo-recurso">Asesoría Legal</h2>
+                            </div>
+                            <p class="tarjeta-descripcion-recurso">
+                                Accede a un servicio de asesoría personalizada con expertos legales para resolver dudas sobre tu caso y derechos.
+                            </p>
+                            <button class="tarjeta-boton-recurso">
+                                Contactar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="contenedor-tarjetas-recurso" id="videos-content" style="display: none;">
+                        </div>
+                    <div class="contenedor-tarjetas-recurso" id="asesoria-content" style="display: none;">
+                        </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

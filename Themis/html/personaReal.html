@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Themis" />
+        <link rel="manifest" href="../site.webmanifest" />
+    <link rel="stylesheet" href="../css/Denuncias/persoReal.css">
+    <link rel="stylesheet" href="../css/encabezado.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+    <title>Denuncia de Persona Real</title>
+</head>
+
+<body>
+    <header class="encabezado-principal">
+        <div class="contenedor-themis">
+                <a href="../html/paginaPrincipal.html" class="logo-link"><img src="../img/logo_themis.png" alt="Logo de Themis">
+                <span>Themis</span>
+                </a><div class="barra-separadora-izq"></div>
+            </div>
+        <div class="buscador-encabezado">
+            <input type="text">
+            <button>
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </div>
+        <div class="barra-separadora-der"></div>
+        <button class="user-icon">
+            <span class="material-symbols-outlined">account_circle</span>
+        </button>
+        <button class="olympus-coso">
+            <span class="material-symbols-outlined">account_balance</span>
+        </button>
+    </header>
+    <main>
+        <div class="contenedor-pagina">
+            <div class="form-contenedor">
+
+                <div class="linea-horizontal top-line"></div>
+                <h2 class="seccion-titulo">Persona Real - Paso 1:</h2>
+                <div class="linea-horizontal bottom-line"></div>
+
+                <div class="form-section active" id="section-datos-personales">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombres">Nombres: *</label>
+                            <input type="text" id="nombres" name="nombres" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row two-columns">
+                        <div class="form-group">
+                            <label for="apellido-paterno">Apellido Paterno: *</label>
+                            <input type="text" id="apellido-paterno" name="apellido-paterno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido-materno">Apellido Materno: *</label>
+                            <input type="text" id="apellido-materno" name="apellido-materno" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row three-columns">
+                        <div class="form-group">
+                            <label for="tipo-documento">Tipo de Documento: *</label>
+                            <div class="custom-select-wrapper">
+                                <div class="custom-select-trigger">
+                                    <span class="selected-value">Seleccione</span>
+                                    <span class="material-symbols-outlined select-arrow">keyboard_arrow_down</span>
+                                </div>
+                                <ul class="custom-options">
+                                    <li data-value="">Seleccione</li>
+                                    <li data-value="DNI">DNI</li>
+                                    <li data-value="Carnet de Extranjería">Carnet de Extranjería</li>
+                                </ul>
+                                <select id="tipo-documento" name="tipoDocumento" style="display: none;">
+                                    <option value="">Seleccione</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                    <option value="Carnet Extranjería">Carnet Extranjería</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero-documento">Número de Documento: *</label>
+                            <input type="text" id="numero-documento" name="numero-documento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sexo">Sexo: *</label>
+                            <input type="text" id="sexo" name="sexo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row two-columns">
+                        <div class="form-group">
+                            <label for="fecha-nacimiento">Fecha de Nacimiento: *</label>
+                            <div class="input-with-icon">
+                                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento"
+                                    placeholder="DD/MM/YYYY" required>
+                                <span class="material-symbols-outlined calendar-icon">calendar_month</span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="fecha-emision-group">
+                            <label for="fecha-emision">Fecha de Emisión del DNI: *</label>
+                            <div class="input-with-icon">
+                                <input type="date" id="fecha-emision" name="fecha-emision" placeholder="DD/MM/YYYY"
+                                    required>
+                                <span class="material-symbols-outlined calendar-icon">calendar_month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row two-columns">
+                        <div class="form-group">
+                            <label for="numero-celular">Número de celular:</label>
+                            <input type="text" id="numero-celular" name="numero-celular">
+                        </div>
+                        <div class="form-group">
+                            <label for="correo-electronico">Correo electrónico:</label>
+                            <input type="email" id="correo-electronico" name="correo-electronico">
+                        </div>
+                    </div>
+
+                    <div class="form-consent">
+                        <input type="checkbox" id="autorizo-datos" name="autorizo-datos">
+                        <label for="autorizo-datos">Autorizo el tratamiento de mis datos</label>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="form-button" id="btn-continuar-personal">Continuar</button>
+                    </div>
+                </div>
+                <div class="form-section" id="section-detalles-incidente" style="display: none;">
+                    <h2 class="section-main-title">Denuncia de Persona Real - Paso 2</h2>
+                    <p class="section-description">Gracias por su confianza. Por favor describe los hechos con el mayor
+                        detalle posible.</p>
+
+                    <div class="form-subsection">
+                        <h4 class="subsection-title">Fecha y Hora del Incidente:</h4>
+                        <div class="form-row three-columns">
+                            <div class="form-group">
+                                <label for="fecha-incidente">Fecha:</label>
+                                <div class="input-with-icon">
+                                    <input type="date" id="fecha-incidente" name="fecha-incidente"
+                                        placeholder="DD/MM/YYYY">
+                                    <span class="material-symbols-outlined calendar-icon">calendar_month</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="hora-incidente">Hora:</label>
+                                <div class="input-with-icon">
+                                    <input type="time" id="hora-incidente" name="hora-incidente">
+                                    <span class="material-symbols-outlined clock-icon">schedule</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ahora-incidente">Ahora:</label>
+                                <input type="checkbox" id="ahora-incidente" name="ahora-incidente">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-subsection">
+                        <h4 class="subsection-title">Ubicación del Incidente:</h4>
+                        <div class="form-row three-columns">
+                            <div class="form-group">
+                                <label for="departamento">Departamento:</label>
+                                <select id="departamento" name="departamento">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="provincia">Provincia:</label>
+                                <select id="provincia" name="provincia">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="distrito">Distrito:</label>
+                                <select id="distrito" name="distrito">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-subsection">
+                        <h4 class="subsection-title">Descripción de los hechos:</h4>
+                        <p class="section-description-text">
+                            Ingrese la descripción de los hechos de su queja o denuncia, incluya nombres completos de
+                            los involucrados si los tuviera, así como toda la información que sea relevante. Se sugiere
+                            considerar en la narración de los hechos el nombre, sobre nombre y/o características físicas
+                            del denunciado; así como, el nombre y/o características físicas de la víctima.
+                        </p>
+                        <div class="form-group full-width">
+                            <textarea id="descripcion-hechos" name="descripcion-hechos" rows="8"
+                                placeholder="Escriba aquí los detalles del incidente..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-subsection">
+                        <h4 class="subsection-title">En caso cuente con pruebas como fotos, audios, documentos o videos,
+                            adjúntelos a continuación:</h4>
+                        <div class="form-group full-width file-upload-area" id="file-upload-area">
+                            <input type="file" id="archivos-evidencia" name="archivos-evidencia" multiple
+                                style="display: none;">
+                            <p>Arrastre sus archivos o presione aquí para cargarlos desde su computadora.</p>
+                            <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                            <div id="file-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="form-button" id="btn-atras-incidente">Atrás</button>
+                        <button type="submit" class="form-button" id="btn-registrar-denuncia">Registrar
+                            Denuncia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../javascript/persoReal.js"></script>
+    <div id="denunciaSuccessModal" class="denuncia-success-modal-backdrop">
+        <div class="denuncia-success-modal-content">
+            <span class="denuncia-success-close-button">&times;</span>
+            <h2>¡Denuncia Recibida!</h2>
+            <p>Gracias por su confianza. Su denuncia ha sido registrada con éxito.</p>
+            <div class="codigo-denuncia-modal">
+                <p>Tu código de seguimineto es:</p>
+                <strong id="codigoDenunciaDisplay">Cargando...</strong> <button id="copiarCodigoModal" class="btn btn-secondary">Copiar código</button>
+            </div>
+            <p>Por favor, guarda este código. Lo necesitarás para dar seguimiento en la sección correspondiente.</p>
+            <button id="modal-ok-button" class="btn btn-primary">Aceptar</button>
+            <a href="../html/consultaDenuncia.html" class="btn btn-primary" style="margin-top: 10px;">Ir a Seguimiento</a>
+        </div>
+    </div>
+</body>
+
+</html>

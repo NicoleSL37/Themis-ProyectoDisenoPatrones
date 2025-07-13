@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="../img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Themis" />
+        <link rel="manifest" href="../site.webmanifest" />
+
+        <link rel="stylesheet" href="../css/encabezado.css">
+        <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/bienvenida.css">
+        <link rel="stylesheet" href="../css/contenedores.css">
+        <link rel="stylesheet" href="../css/modal.css">
+        <title>Themis</title>
+
+    </head>
+    <body>
+        <header class="encabezado-principal">
+            <div class="contenedor-themis">
+                <a href="../html/paginaPrincipal.html" class="logo-link"><img src="../img/logo_themis.png" alt="Logo de Themis">
+                <span>Themis</span>
+                </a><div class="barra-separadora-izq"></div>
+            </div>
+            <div class="buscador-encabezado">
+                <input type="text">
+                <button class="boton-busqueda">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <div class="barra-separadora-der"></div>
+            <button class="buscar-icon">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+            <button class="user-icon" id="btn-abrir-modal-login">
+                <span class="material-symbols-outlined">account_circle</span>
+            </button>
+            <button class="olympus-coso">
+                <span class="material-symbols-outlined">account_balance</span>
+            </button>
+        </header>
+        <main>
+            <section class="seccion-bienvenida">
+                <h2 class="bienvenida-titulo">Bienvenido a Themis: Tu Plataforma para la Paz y la Justicia Social</h2>
+                <p class="bienvenida-sub">Empoderando ciudadanos, promoviendo derechos y construyendo un futuro justo.</p>
+            </section>
+            <section class="seccion-contenido">
+                <div class="linea-horizontal top-line">
+                    <h2 class="seccion-titulo">Denuncias y Seguimiento</h2>
+                    <div class="linea-horizontal bottom-line"></div>
+                </div>
+            </section>
+            <div class="contenedor-denuncia">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="material-symbols-outlined">balance</span>
+                        <h3>Realizar una Denuncia</h3>
+                    </div>
+                    <p>Reporta violaciones de derechos o injusticias de forma segura.</p>
+                    <button class="denucia-boton" id="btn-abrir-modal-denuncia">Iniciar Denuncia</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="material-symbols-outlined">mystery</span>
+                        <h3>Seguimiento de Denuncias o Casos</h3>
+                    </div>
+                    <p>Consulta el estado y progreso de tus denuncias presentadas</p>
+                    <button class="seguimiento-boton" id="btnConsultar" onclick="location.href='consultaDenuncia.html'">Consultar</button>
+                </div>
+            </div>
+            <section class="seccion-contenido">
+                <div class="linea-horizontal top-line">
+                    <h2 class="seccion-titulo">Educación y Transparencia</h2>
+                    <div class="linea-horizontal bottom-line"></div>
+                </div>
+            </section>
+            <div class="contenedor-educacion">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="material-symbols-outlined">school</span>
+                        <h3>Educación</h3>
+                    </div>
+                    <p>Explora guías, videos y asesoría para entender tus derechos y el proceso de denuncia.</p>
+                    <a href="educacion.html" class="denucia-boton">Explorar</a>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="material-symbols-outlined">things_to_do</span>
+                        <h3>Transparencia</h3>
+                    </div>
+                    <p>Accede a información pública sobre gestión gubernamental y de organizaciones.</p>
+                    <button class="seguimiento-boton">Conoce Más</button>
+                </div>
+            </div>
+        </main>
+        <div class="modal-backdrop" id="modal-backdrop-denuncia">
+            <div class="modal-content">
+                <span class="modal-close" id="btn-cerrar-modal-denuncia">&times;</span>
+                <h2>¿Cómo desea presentar tu denuncia?</h2>
+                <p>Elige la opción que mejor se adapte a tus necesidades.</p>
+
+                <div class="modal-options">
+                    <div class="option-card">
+                        <span class="material-symbols-outlined">person</span>
+                        <h3>Persona Real</h3>
+                        <p>Tu identidad será verificada para seguimiento y contacto.</p>
+                        <button id="btn-iniciar-persona-real">Iniciar Denuncia</button>
+                    </div>
+                    <div class="option-card">
+                        <span class="material-symbols-outlined">domino_mask</span>
+                        <h3>Anónimo</h3>
+                        <p>Tu identidad será cofidencial. Sin seguimiento de contacto.</p>
+                        <button id="btn-iniciar-anonimo" class="modal-option-button"> Iniciar Denuncia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop" id="modal-backdrop-login">
+            <div class="modal-content">
+                <span class="modal-close" id="btn-cerrar-modal-login">&times;</span>
+                <h2>Iniciar Sesión</h2>
+                <p>Ingresa tus credenciales para acceder al panel de administración.</p>
+
+                <form id="login-form" action="procesar_login.php" method="POST" novalidate> <div class="form-group">
+                        <label for="email-login">Correo electrónico:</label>
+                        <input type="email" id="email-login" name="email" placeholder="Correo electrónico" required>
+                        <span class="error-message" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-login">Contraseña:</label>
+                        <div class="input-with-icon">
+                            <input type="password" id="password-login" name="password" placeholder="Ingresa tu contraseña" required>
+                            <span class="material-symbols-outlined toggle-password">visibility_off</span>
+                        </div>
+                        <span class="error-message" aria-live="polite"></span>
+                    </div>
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox" name="remember-me"> Recuérdame
+                        </label>
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="boton-ingresar">Ingresar</button>
+                </form>
+            </div>
+        </div>
+        <script src="../javascript/denuncias.js"></script>
+        <script src="../javascript/loginModal.js"></script>
+    </body>
+</html>

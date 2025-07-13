@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Themis" />
+    <link rel="manifest" href="../site.webmanifest" />
+    <title>Colsultar Denuncia - Themis</title>
+    <link rel="stylesheet" href="../css/encabezado.css">
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/bienvenida.css">
+    <link rel="stylesheet" href="../css/consultaDenuncia.css">
+</head>
+<body>
+    <header class="encabezado-principal">
+            <div class="contenedor-themis">
+                <a href="../html/paginaPrincipal.html" class="logo-link"><img src="../img/logo_themis.png" alt="Logo de Themis">
+                <span>Themis</span>
+                </a><div class="barra-separadora-izq"></div>
+            </div>
+            <div class="buscador-encabezado">
+                <input type="text">
+                <button>
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <div class="barra-separadora-der"></div>
+            <button class="user-icon">
+                <span class="material-symbols-outlined">account_circle</span>
+            </button>
+            <button class="olympus-coso">
+                <span class="material-symbols-outlined">account_balance</span>
+            </button>
+        </header>
+            <main class="main-layout-consulta"> 
+                <div class="titulo-consulta-container">
+            <h2 class="seccion-titulo">Consulte el estado de su Denuncia o Caso</h2> 
+        </div>
+
+        <div class="main-content-consulta"> <section id="seccionFormularioConsulta" class="consulta-section">
+                <form id="formConsultaDenuncia">
+                    <div class="form-group">
+                        <label for="tipoDenuncia">Tipo de Denuncia:</label>
+                        <select id="tipoDenuncia" name="tipoDenuncia" required>
+                            <option value="">Seleccionar</option>
+                            <option value="anonima">Anónima</option>
+                            <option value="personaReal">Persona Real</option>
+                        </select>
+                    </div>
+
+                    <div id="camposPersonaReal" class="persona-real-box hidden">
+                        <div class="form-row">
+                            <div class="form-group half-width">
+                                <label for="tipoDocumento">Tipo de Documento *</label>
+                                <select id="tipoDocumento" name="tipoDocumento">
+                                    <option value="">Seleccionar</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="CE">Carnet de Extranjería</option>
+                                </select>
+                            </div>
+                            <div class="form-group half-width">
+                                <label for="numeroDocumento">Nro: *</label>
+                                <input type="text" id="numeroDocumento" name="numeroDocumento" placeholder="Número de Documento">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigoDenuncia">Código de denuncia *</label>
+                        <input type="text" id="codigoDenuncia" name="codigoDenuncia" required placeholder="Ingrese el código de denuncia">
+                    </div>
+
+                    <button type="submit" class="btn-submit">Buscar Denuncia</button>
+                </form>
+                    <p id="mensajeErrorConsulta" class="error-message"></p>
+            </section>
+        </div>
+    </main>
+
+    <script src="../javascript/scriptsConsulta.js"></script> 
+</body>
+</html>

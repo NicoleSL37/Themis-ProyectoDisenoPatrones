@@ -1,0 +1,142 @@
+.seccion-contenido{
+    margin-top: 80px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px;
+    box-sizing: border-box;
+    align-items: flex-start;
+}
+
+.linea-horizontal{
+    height: 2px;
+    background-color: #C2D7B4;
+    width: 100%;
+    margin: 0;
+}
+
+.top-line{
+    margin-bottom: 20px;
+}
+
+.bottom-line{
+    margin-top: 20px;
+}
+
+.seccion-titulo{
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 18px;
+    color: black;
+    margin: 0;
+    padding: 0 20px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/*DENUNCIA Y SEGUIMIENTO*/
+.contenedor-denuncia{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 960px; /* Ajusta según tus necesidades */
+    margin: 40px auto; /* Centra el contenedor en la página y añade margen vertical */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* <-- ¡Añade esto para una transición suave! */
+    cursor: pointer;
+}
+
+.contenedor-educacion{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 960px; /* Ajusta según tus necesidades */
+    margin: 40px auto; /* Centra el contenedor en la página y añade margen vertical */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* <-- ¡Añade esto para una transición suave! */
+    cursor: pointer;
+}
+.card{
+    flex: 1; /* Permite que las tarjetas crezcan y ocupen el espacio disponible, intentando tener el mismo ancho */
+    min-width: 300px; /* Asegura que las tarjetas no se hagan demasiado pequeñas */
+    max-width: 450px; /* Limita el ancho máximo para que no se estiren demasiado */
+
+    padding: 35px;
+    border: 3px solid #C2D7B4;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* <-- ¡Añade esto para una transición suave! */
+    cursor: pointer;
+}
+
+.contenedor-denuncia .card:hover {
+    transform: translateY(-5px); /* <-- Se mueve 5px hacia arriba */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* <-- Añade una sombra para el efecto de alzarse */
+}
+.contenedor-educacion .card:hover {
+    transform: translateY(-5px); /* <-- Se mueve 5px hacia arriba */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* <-- Añade una sombra para el efecto de alzarse */
+}
+
+.card-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.card-header span{
+    width: 70px;
+    margin-right: 10px;
+    font-size: 3em;
+}
+
+.card-header h3{
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 2em;
+    margin: 0;
+}
+
+.card p{
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    flex-grow: 1;
+    text-align: center;
+    padding-bottom: 0;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+    
+}
+
+.seguimiento-boton, .denucia-boton{
+    font-family: "Akaya Kanadaka", system-ui;
+    background-color: #C2D7B4;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+

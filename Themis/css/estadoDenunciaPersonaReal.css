@@ -1,0 +1,105 @@
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ajusta el margin-top del main-layout-consulta para posicionarlo debajo del encabezado.
+Necesitas saber la altura de tu encabezado (header.encabezado-principal).
+   Asumamos una altura de 60px para el encabezado, ajusta si es diferente. */
+.main-layout-consulta {
+    display: flex; /* Hacemos este contenedor un flex container */
+    justify-content: center; /* Centra los elementos horizontalmente (titulo y formulario) en el medio de la pantalla */
+    align-items: flex-start; /* Alinea los elementos al inicio (arriba) de su contenedor flex */
+    padding: 40px 20px; /* Padding general para el contenido */
+    flex-grow: 1; /* Permite que este contenedor ocupe el espacio disponible */
+    gap: 50px; /* Espacio entre el título y el formulario (ajusta este valor) */
+    margin-top: 20px; /* Margen superior para separarlo del encabezado */
+    background-color: #E5E5E5;
+}
+
+/* Define el esquema de color general para el wrapper de denuncia de persona real */
+.estado-denuncia-wrapper.persona-real {
+    /* Resetea cualquier margin-top aquí, ya que el main-layout-consulta ahora controla la posición */
+    margin: 0 auto 20px auto; /* Centrar horizontalmente, sin margen superior. 20px margen inferior. */
+    max-width: 900px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Ajustes para el contenedor del título */
+.estado-denuncia-wrapper.persona-real .titulo-consulta-container {
+    padding: 1px 10px 4px 20px;
+    font-family: "Akaya Kanadaka", system-ui;
+    background-color: #E5E5E5;
+    border-bottom: 2px solid #C2D7B4;
+    margin-bottom: 0;
+}
+
+/* Título principal de la sección (h2) */
+.estado-denuncia-wrapper.persona-real .seccion-titulo {
+    font-size: 2em;
+    font-weight: bold;
+    color: black;
+    padding-bottom: 3px;
+    margin-bottom: 0;
+    display: inline-block; 
+}
+
+/* Contenido principal del estado de la denuncia */
+.estado-denuncia-wrapper.persona-real .main-content-estado {
+    padding: 25px 30px; /* Mantén este padding interno */
+    margin-top: 0; /* Asegura que no haya margen superior extra que lo separe del titulo-consulta-container */
+    background-color: #E5E5E5;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Títulos de sub-sección (Detalles de la Denuncia, Archivos Adjuntos, Información Personal) */
+.estado-denuncia-wrapper.persona-real .sub-seccion-titulo {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    color: black; /* Color del texto "Detalles de la Denuncia" */
+    border-color: #9cd69c; /* Color de la línea punteada debajo del subtítulo */
+    margin-top: 1px; /* Ajusta este margen si necesitas más o menos espacio entre secciones */
+    padding-bottom: 8px;
+    border-bottom: 1px dashed;
+    border-bottom-color: #6C86CB; /* Línea punteada en tono naranja */
+}
+
+
+/* Colores para las etiquetas de los campos */
+.estado-denuncia-wrapper.persona-real .denuncia-detalle-item label {
+    color: black; /* Un tono más oscuro del naranja para las etiquetas */
+}
+
+/* Bordes de los "campos" de visualización */
+.estado-denuncia-wrapper.persona-real .denuncia-detalle-item span,
+.estado-denuncia-wrapper.persona-real .denuncia-detalle-item p {
+    border: 1px solid #6C86CB; /* Borde azul-gris */
+    border-radius: 10px; /* Borde naranja */
+}
+
+/* Colores de los iconos y enlaces de archivos */
+.estado-denuncia-wrapper.persona-real .seccion-archivos-adjuntos ul li .material-symbols-outlined {
+    border: 1px solid #6C86CB; /* Borde azul-gris */
+    /* Naranja para los iconos de archivo */
+}
+
+.estado-denuncia-wrapper.persona-real .seccion-archivos-adjuntos ul li a {
+    color: #af7b3b; /* Mismo naranja oscuro para los enlaces */
+}
+
+/* Mensajes de error/carga específicos de esta página si se mostraran aquí */
+.estado-denuncia-wrapper.persona-real .loading-message {
+    background-color: #fffaf0;
+    border: 1px solid #d19a4e;
+    color: #af7b3b;
+}
+
+.estado-denuncia-wrapper.persona-real .error-message {
+    background-color: #ffe0e0;
+    border: 1px solid #c94c4c;
+    color: red;
+}

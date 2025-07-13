@@ -1,0 +1,24 @@
+# Ignorar dependencias de Node.js (Frontend)
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+.env
+.DS_Store
+
+# Ignorar archivos generados por Java/NetBeans (Backend)
+/backend/build/
+/backend/dist/
+/backend/nbproject/private/
+*.jar
+*.war
+*.class
+*.log
+# Para Maven/Gradle si los usas en Java
+/backend/target/
+.gradle/
+.idea/ # Si usas IntelliJ, NetBeans también puede generar algo similar
+*.iml
+
+# Ignorar archivos específicos del sistema operativo
+.DS_Store
+Thumbs.db

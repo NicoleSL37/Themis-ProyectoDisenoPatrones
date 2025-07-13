@@ -1,0 +1,94 @@
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.main-layout-consulta {
+    display: flex; /* Hacemos este contenedor un flex container */
+    justify-content: center; /* Centra los elementos horizontalmente (titulo y formulario) en el medio de la pantalla */
+    align-items: flex-start; /* Alinea los elementos al inicio (arriba) de su contenedor flex */
+    padding: 40px 20px; /* Padding general para el contenido */
+    flex-grow: 1; /* Permite que este contenedor ocupe el espacio disponible */
+    gap: 50px; /* Espacio entre el título y el formulario (ajusta este valor) */
+    margin-top: 20px; /* Margen superior para separarlo del encabezado */
+    background-color: #E5E5E5;
+}
+
+/* Además, asegúrate de que tu .estado-denuncia-wrapper.anonima no tenga un margin-top positivo innecesario,
+   ya que el espacio ahora lo controlamos desde el padre. Puedes dejarlo en 0px si el -80px del padre funciona bien. */
+.estado-denuncia-wrapper.anonima {
+    max-width: 900px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.estado-denuncia-wrapper.anonima .titulo-consulta-container {
+    padding: 1px 10px 4px 20px;
+    font-family: "Akaya Kanadaka", system-ui;
+    background-color: #E5E5E5;
+    border-bottom: 2px solid #C2D7B4;
+    margin-bottom: 0;
+}
+
+.estado-denuncia-wrapper.anonima .seccion-titulo {
+    font-size: 2em;
+    font-weight: bold;
+    color: black;
+    padding-bottom: 3px;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+/* Ajustes para el main-content-estado dentro de la denuncia anónima */
+.estado-denuncia-wrapper.anonima .main-content-estado {
+    padding: 25px 30px; /* Mantén este padding interno */
+    margin-top: 0; /* Asegura que no haya margen superior extra que lo separe del titulo-consulta-container */
+    background-color: #E5E5E5;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Ajustes para los subtítulos dentro de la denuncia anónima */
+.estado-denuncia-wrapper.anonima .sub-seccion-titulo {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    color: black; /* Color del texto "Detalles de la Denuncia" */
+    border-color: #9cd69c; /* Color de la línea punteada debajo del subtítulo */
+    margin-top: 1px; /* Ajusta este margen si necesitas más o menos espacio entre secciones */
+    padding-bottom: 8px;
+    border-bottom: 1px dashed;
+    border-bottom-color: #6C86CB; /* Esto lo mantuvimos en estadoDenuncia.css, pero puedes sobrescribir el estilo si quieres */
+}
+/* Colores para las etiquetas de los campos */
+.estado-denuncia-wrapper.anonima .denuncia-detalle-item label {
+    color: black; /* Un tono más oscuro del azul para las etiquetas */
+}
+
+/* Bordes de los "campos" de visualización */
+.estado-denuncia-wrapper.anonima .denuncia-detalle-item span,
+.estado-denuncia-wrapper.anonima .denuncia-detalle-item p {
+    border: 1px solid #6C86CB; /* Borde azul-gris */
+    border-radius: 10px;
+}
+
+/* Colores de los iconos y enlaces de archivos */
+.estado-denuncia-wrapper.anonima .seccion-archivos-adjuntos ul li .material-symbols-outlined {
+    color: #5a75b8; /* Un azul más suave para los iconos de archivo */
+}
+
+.estado-denuncia-wrapper.anonima .seccion-archivos-adjuntos ul li a {
+    color: #4a5d7c; /* Mismo azul oscuro para los enlaces */
+}
+
+/* Mensajes de error/carga específicos de esta página si se mostraran aquí */
+/* Aunque la lógica es que el JS limpie estos, se mantienen por si acaso */
+.estado-denuncia-wrapper.anonima .loading-message {
+    background-color: #e0f2f7;
+    border: 1px solid #a3d9ed;
+    color: #007bff;
+}
+
+.estado-denuncia-wrapper.anonima .error-message {
+    background-color: #ffe0e0;
+    border: 1px solid #c94c4c;
+    color: red;
+}

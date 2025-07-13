@@ -1,0 +1,32 @@
+[
+{
+    "departamento": "Lima",
+    "provincias": [
+    {
+        "provincia": "Lima",
+        "distritos": ["Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Chaclacayo", "Chorrillos", "Cieneguilla", "Comas", "El Agustino", "Independencia", "Jesús María", "La Molina", "La Victoria", "Lince", "Los Olivos", "Lurigancho", "Lurin", "Magdalena del Mar", "Pueblo Libre", "Miraflores", "Pachacámac", "Pucusana", "Puente Piedra", "Punta Hermosa", "Punta Negra", "Rimac", "San Bartolo", "San Borja", "San Isidro", "San Juan de Lurigancho", "San Juan de Miraflores", "San Luis", "San Martin de Porres", "San Miguel", "Santa Anita", "Santa María del Mar", "Santa Rosa", "Santiago de Surco", "Surquillo", "Villa El Salvador", "Villa María del Triunfo"]
+    },
+    {
+        "provincia": "Callao",
+        "distritos": ["Bellavista", "Callao", "Carmen de la Legua-Reynoso", "La Perla", "La Punta", "Ventanilla", "Mi Perú"]
+    },
+    {
+        "provincia": "Cañete",
+        "distritos": ["San Vicente de Cañete", "Asia", "Calango", "Cerro Azul", "Chilca", "Cochas", "Imperial", "Lunahuaná", "Mala", "Nuevo Imperial", "Pacarán", "Quilmaná", "San Antonio", "San Luis", "San Pedro de Mala", "Santa Cruz de Flores", "Zúñiga"]
+    }
+    ]
+},
+{
+    "departamento": "Arequipa",
+    "provincias": [
+    {
+        "provincia": "Arequipa",
+        "distritos": ["Alto Selva Alegre", "Arequipa", "Cayma", "Cerro Colorado", "Characato", "Chiguata", "Jacob Hunter", "La Joya", "Mariano Melgar", "Miraflores", "Mollebaya", "Paucarpata", "Quequeña", "Sabandía", "Sachaca", "San Juan de Siguas", "San Juan de Tarucani", "Santa Isabel de Siguas", "Santa Rita de Siguas", "Saylla", "Socabaya", "Tiabaya", "Uchumayo", "Vítor", "Yanahuara", "Yarabamba", "Yura"]
+    },
+    {
+        "provincia": "Camaná",
+        "distritos": ["Camaná", "José María Quimper", "Mariano Nicolás Valcárcel", "Mariscal Cáceres", "Nicolás de Piérola", "Quilca", "Samuel Pastor", "Urasqui"]
+    }
+    ]
+}
+]

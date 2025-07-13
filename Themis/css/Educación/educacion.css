@@ -1,0 +1,337 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #E5E5E5;
+    font-family: "Akaya Kanadaka", system-ui;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+.akaya-kanadaka-regular {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.seccion-educacion {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.header-educacion {
+    margin-top: -50px; /* Aplica el margen negativo aquí para subir solo esta parte */
+    margin-bottom: 50px; /* Añade un margen inferior para separar de las tarjetas */
+    text-align: center;
+}
+
+.contenido-educacion {
+    padding: 20px;
+}
+
+.titulo-con-lineas {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en una columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.linea-arriba,
+.linea-abajo {
+    width: 90%; /* Ajusta el ancho de la línea según sea necesario */
+    max-width: 800px;
+    height: 2px; /* Grosor de la línea */
+    background-color: #C2D7B4; /* Color de la línea (azul) */
+    margin: 15px 0; /* Espacio entre la línea y el título */
+}
+
+
+.titulo-principal-educacion {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 2.2em;
+    font-weight: 600;
+    color: black;
+    margin: 0;
+}
+
+.menu-pestañas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.separador-pestaña {
+    width: 2px; /* Grosor de la línea */
+    height: 30px; /* Altura de la línea */
+    background-color: #C2D7B4; /* Color de la línea */
+    flex-shrink: 0;
+}
+
+.pestaña-item {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 3px solid transparent;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.pestaña-activa {
+    color: #6C86CB;
+    border-bottom: 3px solid #6C86CB;
+}
+
+.pestaña-item:hover {
+    color: #6C86CB;
+}
+
+.contenedor-tarjetas-recurso {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.tarjeta-recurso {
+    flex: 1 1 300px;
+    max-width: 350px;
+    background-color: #E5E5E5;
+    border: 2px solid #C2D7B4;
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-header {
+    display: flex; /* Habilita Flexbox */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    gap: 15px; /* Espacio entre el ícono y el título */
+    margin-bottom: 20px; /* Añade espacio debajo del header */
+}
+
+
+.tarjeta-recurso:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-icono-wrapper {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+
+.icono-recurso {
+    font-size: 35px;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+}
+
+.tarjeta-recurso:nth-child(1) .tarjeta-icono-wrapper {
+    border: 2px solid #D13E42; /* Borde rojo */
+}
+.tarjeta-recurso:nth-child(1) .icono-recurso {
+    color: #D13E42; /* Ícono rojo */
+}
+
+.tarjeta-recurso:nth-child(2) .tarjeta-icono-wrapper {
+    border: 2px solid #6C86CB; /* Borde azul */
+}
+.tarjeta-recurso:nth-child(2) .icono-recurso {
+    color: #6C86CB; /* Ícono azul */
+}
+
+.tarjeta-recurso:nth-child(3) .tarjeta-icono-wrapper {
+    border: 2px solid black; /* Borde negro */
+}
+.tarjeta-recurso:nth-child(3) .icono-recurso {
+    color: black; /* Ícono negro */
+}
+
+.tarjeta-titulo-recurso {
+    margin: 0; /* Quita el margen por defecto para que no afecte la alineación */
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: black;
+    /* text-align: center; <-- Ya no es necesario, lo controla el contenedor */
+}
+
+.tarjeta-descripcion-recurso {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.1em;
+    color: black;
+    line-height: 1.6;
+    min-height: 80px; /* Mantiene una altura mínima para la descripción */
+    margin-bottom: 25px;
+}
+
+.tarjeta-boton-recurso {
+    font-family: "Akaya Kanadaka", system-ui;
+    background: none;
+    border: 2px solid #C2D7B4;
+    color: #6C86CB;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tarjeta-boton-recurso:hover {
+    font-family: "Akaya Kanadaka", system-ui;
+    background-color: #C2D7B4;
+    color: black;
+}
+
+@media screen and (max-width: 1024px) {
+    .encabezado-principal {
+        padding: 10px 20px;
+        flex-wrap: wrap; /* Activa el wrap para que se apilen */
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .buscador-encabezado {
+        display: none;
+    }
+
+    .barra-separadora-izq,
+    .barra-separadora-der {
+        display: none;
+    }
+
+    .buscar-icon {
+        display: flex;
+        margin-left: auto;
+        margin-right: 15px;
+        order: 2; /* Colócalo después del logo */
+    }
+
+    .user-icon {
+        order: 3;
+        width: auto;
+        margin: 0;
+    }
+    
+    .olympus-coso {
+        order: 4;
+        width: auto;
+        margin: 0;
+    }
+
+    .contenedor-themis {
+        order: 1;
+        margin-left: 0;
+    }
+
+    .contenedor-themis img {
+        height: 80px;
+    }
+
+    .contenedor-themis span {
+        font-size: 3.5em;
+    }
+
+
+    /* Contenido de Educación */
+    .menu-pestañas {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .linea-arriba,
+    .linea-abajo {
+        display: none;
+    }
+
+    .separador-pestaña {
+        display: none;
+    }
+    
+    .contenedor-tarjetas-recurso {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tarjeta-recurso {
+        width: 90%;
+        margin-bottom: 20px;
+        padding: 30px 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .encabezado-principal {
+        padding: 10px;
+    }
+    
+    .contenedor-themis img {
+        height: 60px;
+    }
+    
+    .contenedor-themis span {
+        font-size: 2.5em;
+    }
+
+    .buscar-icon .material-symbols-outlined,
+    .user-icon .material-symbols-outlined,
+    .olympus-coso .material-symbols-outlined {
+        font-size: 30px;
+        font-variation-settings: 'opsz' 30;
+    }
+
+    .titulo-principal-educacion {
+        font-size: 1.8em;
+    }
+}
+
+/* Para móviles muy pequeños (ancho máximo: 480px) */
+@media screen and (max-width: 480px) {
+    .contenedor-themis {
+        gap: 10px;
+    }
+    .contenedor-themis span {
+        font-size: 2em;
+    }
+    
+    .tarjeta-recurso {
+        width: 100%;
+        padding: 20px 10px;
+    }
+    
+    .tarjeta-descripcion-recurso {
+        min-height: auto;
+    }
+}

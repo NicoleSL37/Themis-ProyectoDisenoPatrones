@@ -1,0 +1,244 @@
+body { 
+    margin: 0;
+    background-color: #E5E5E5; 
+    /*display: block;
+    justify-content: center;
+    align-items: center;*/
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+.encabezado-principal{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 40px;
+    /*Temporal*/
+    /*border: 1px solid red;*/
+}
+
+
+.contenedor-themis{
+    display: flex; 
+    align-items: center;
+    /*Temporal*/
+    /*background-color: #ccffcc;
+    border: 1px solid green; */
+    gap: 25px; 
+    flex-shrink: 0;
+}
+
+.contenedor-themis img{
+    width: auto;
+    height: 130px;
+    margin-left: 15px;
+}
+
+.contenedor-themis span{
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 5em;
+    color: black;
+    white-space: nowrap;
+}
+
+.contenedor-themis .logo-link {
+    text-decoration: none; /* Elimina el subrayado por defecto del enlace */
+    color: inherit; /* Hereda el color del padre si quieres que el texto no cambie de color */
+    display: flex; /* Si quieres que el logo y el texto estén en línea con el enlace */
+    align-items: center; /* Centra verticalmente el logo y el texto dentro del enlace */
+}
+
+.barra-separadora-izq{
+    width: 4px; 
+    height: 50px; 
+    margin-left: 10px;
+    background-color: #6C86CB; 
+    border-radius: 4px; 
+}
+
+.barra-separadora-der{
+    width: 4px; 
+    height: 50px; 
+    margin-left: 40px;
+    background-color: #6C86CB; 
+    border-radius: 4px; 
+}
+
+.buscador-encabezado{
+    display: flex;
+    align-items: center;
+    /*margin-left: 40px;*/
+    flex-grow: 1;
+    max-width: 900px;
+    /*background-color: #ccccff;
+    border: 1px solid blue;*/
+    background-color: #6C86CB;
+    gap: 20px;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.buscador-encabezado input{
+    border: none;
+    outline: none;
+    padding: 8px 20px;
+    font-size: 1em;
+    width: 100%;
+    /*width: 550px;*/
+    background-color: transparent;
+    color: #fff;
+}
+
+.buscador-encabezado button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color:#fff;
+    flex-shrink: 0;
+}
+
+
+
+.user-icon, .olympus-coso{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.user-icon .material-symbols-outlined,
+.olympus-coso .material-symbols-outlined{
+    font-size: 40px;
+    color: black;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 40;
+}
+
+
+.akaya-kanadaka-regular {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.buscar-icon{
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .encabezado-principal {
+        flex-wrap: wrap; /* **¡ACTIVA EL WRAP MÁS PRONTO!** */
+        justify-content: space-between;
+        padding: 10px 20px; /* Reduce el padding horizontal */
+        gap: 15px; /* Reduce el espacio */
+    }
+
+    .contenedor-themis {
+        order: 1;
+        margin-left: 0;
+    }
+
+    .contenedor-themis img {
+        height: 80px; /* Reduce el tamaño del logo */
+    }
+
+    .contenedor-themis span {
+        font-size: 3.5em; /* Reduce el tamaño del texto */
+        /* white-space: normal; */ /* Opcional: permite que el texto se rompa */
+    }
+
+    /* Oculta las barras separadoras, ya no son necesarias si hay wrap */
+    .barra-separadora-izq,
+    .barra-separadora-der {
+        display: none;
+    }
+
+    .buscador-encabezado {
+        display: none;
+    }
+
+    .buscar-icon{
+        display: flex; /* Muestra el icono en esta vista */
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: black; /* Color de tu icono */
+        padding: 0;
+        margin-left: auto; /* Mueve el icono a la derecha */
+        margin-right: 15px; /* Espacio antes de los otros iconos */
+        order: 2; /* Colócalo después del logo */
+    }
+
+    .buscar-icon .material-symbols-outlined {
+        font-size: 30px; /* Tamaño del icono */
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+    }
+
+    .user-icon {
+        order: 3;
+        width: auto;
+        margin: 0;
+    }
+    
+    .olympus-coso {
+        order: 4;
+        width: auto;
+        margin: 0;
+    }
+}
+
+/* --- Para pantallas de móviles y tabletas pequeñas (ancho máximo: 768px) --- */
+@media screen and (max-width: 768px) {
+    .encabezado-principal {
+        padding: 10px;
+    }
+    
+    .contenedor-themis img {
+        height: 60px;
+    }
+    
+    .contenedor-themis span {
+        font-size: 2.5em;
+    }
+
+    .user-icon .material-symbols-outlined,
+    .olympus-coso .material-symbols-outlined {
+        font-size: 30px;
+        font-variation-settings: 'opsz' 30;
+    }
+}
+
+/* --- Para móviles muy pequeños (ancho máximo: 480px) --- */
+@media screen and (max-width: 480px) {
+    .contenedor-themis {
+        gap: 10px;
+    }
+    .contenedor-themis span {
+        font-size: 1.8em; /* Aún más pequeño */
+    }
+    /* Opcional: Si el espacio es crítico, puedes ocultar el texto */
+    /* .contenedor-themis span { display: none; } */
+}

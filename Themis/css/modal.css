@@ -1,0 +1,394 @@
+.modal-backdrop {
+    position: fixed; /* Fija el modal en relación a la ventana del navegador */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente oscuro */
+    
+    display: flex; /* Utiliza flexbox para centrar el contenido del modal */
+    justify-content: center; /* Centra horizontalmente el modal-content */
+    align-items: center; /* Centra verticalmente el modal-content */
+    
+    z-index: 1000; /* Asegura que esté por encima de casi todo lo demás */
+    
+    /* Estado inicial oculto */
+    visibility: hidden; 
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s; /* Transición suave para la visibilidad */
+}
+
+/* Contenido principal del modal (la caja blanca flotante) */
+.modal-content {
+    background-color: #E5E5E5; /* Fondo blanco */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada */
+    position: absolute; /* Necesario para posicionar el botón de cerrar */
+    
+    width: 90%; /* Ancho responsivo del 90% del padre */
+    max-width: 800px; /* Ancho máximo para evitar que sea demasiado grande */
+    min-height: 200px; /* Altura mínima para que no se vea comprimido */
+
+    text-align: center; /* Centra el texto y elementos inline-block dentro del modal */
+
+    /* Animación al aparecer/desaparecer */
+    transform: translateY(-50px); /* Empieza un poco arriba */
+    opacity: 0; /* Empieza transparente */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Transición suave */
+}
+
+/* Estado activo del modal (cuando se muestra) */
+.modal-backdrop.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-backdrop.active .modal-content {
+    transform: translateY(0); /* Vuelve a su posición normal */
+    opacity: 1;
+}
+
+/* Botón para cerrar el modal (la 'x') */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 2.5em; /* Tamaño grande para ser fácil de ver y clickear */
+    cursor: pointer;
+    color: #E5E5E5;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+/* Estilos para el texto principal dentro del modal */
+.modal-content h2 {
+    font-family: "Akaya Kanadaka", system-ui; /* Asegúrate de que esta fuente esté cargada */
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.modal-content > p { /* Selector directo para el párrafo principal del modal */
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    color: black;
+    margin-bottom: 30px;
+}
+
+/* Contenedor de las dos tarjetas de opción (Persona Real / Anónimo) */
+.modal-options {
+    display: flex; /* CLAVE: Para que las tarjetas de opción se coloquen una al lado de la otra */
+    justify-content: center; /* Centra las tarjetas de opción horizontalmente */
+    align-items: stretch; /* CLAVE: Para que ambas tarjetas de opción tengan la misma altura */
+    gap: 30px; /* Espacio entre las tarjetas de opción */
+    flex-wrap: wrap; /* Permite que las tarjetas salten a la siguiente línea en pantallas pequeñas */
+    margin-top: 20px; /* Espacio superior si lo necesitas */
+}
+
+/* Cada tarjeta de opción individual */
+.option-card {
+    flex: 1; /* Permite que crezcan para ocupar el espacio disponible */
+    min-width: 250px; /* Ancho mínimo para que no se compriman demasiado */
+    max-width: 350px; /* Ancho máximo para que no se estiren demasiado */
+    
+    background-color: #E5E5E5; /* Un color de fondo ligeramente diferente */
+    border: 2px solid #C2D7B4;
+    border-radius: 8px;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+
+
+    /* Flexbox para alinear contenido interno y botón abajo (similar a tus .card principales) */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el botón hacia la parte inferior */
+}
+
+/* Íconos dentro de las tarjetas de opción */
+.option-card .material-symbols-outlined {
+    font-size: 4.5em; /* Un tamaño generoso para los iconos */
+    margin-bottom: 15px;
+    color: black; /* Color de los iconos */
+    line-height: 1; /* Ayuda a la alineación vertical */
+}
+
+/* Título (h3) dentro de las tarjetas de opción */
+.option-card h3 {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+/* Párrafo dentro de las tarjetas de opción */
+.option-card p {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    color: black;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1; /* CLAVE: Este párrafo debe crecer para empujar el botón */
+    text-align: center;
+}
+
+/* Botones dentro de las tarjetas de opción */
+.option-card button {
+    background-color: #C2D7B4; /* El mismo color de tus botones principales */
+    font-family: "Akaya Kanadaka", system-ui;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    width: fit-content; /* El botón solo ocupa el ancho de su contenido */
+    margin: 0 auto; /* Centrar el botón */
+    transition: background-color 0.3s ease;
+}
+
+.option-card button:hover {
+    background-color: #C2D7B4;
+}
+
+.denuncia-success-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden; /* Oculto por defecto */
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.denuncia-success-modal-content {
+    background-color: #E5E5E5; /* Fondo blanco */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+    
+    width: 90%;
+    max-width: 500px; /* Un poco más pequeño para el modal de éxito */
+    /* min-height no es tan crítico aquí, puedes omitirlo o ajustarlo */
+
+    text-align: center;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Estado activo del modal de éxito */
+.denuncia-success-modal-backdrop.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.denuncia-success-modal-backdrop.active .denuncia-success-modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Botón de cerrar (la 'x') para el modal de éxito */
+.denuncia-success-close-button {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 2.5em;
+    cursor: pointer;
+    color: black; /* Color para que sea visible en el fondo blanco del modal */
+    transition: color 0.2s ease;
+}
+
+.denuncia-success-close-button:hover {
+    color: #333;
+}
+
+/* Estilos para el texto dentro del modal de éxito */
+.denuncia-success-modal-content h2 {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.denuncia-success-modal-content p { /* No necesitas el > para el párrafo principal */
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    color: black;
+    margin-bottom: 30px;
+}
+
+/* Estilo para el botón Aceptar dentro del modal de éxito */
+.denuncia-success-modal-content #modal-ok-button { /* Más específico para el botón de este modal */
+    background-color: #C2D7B4; /* Reutiliza el color de tus botones de opción */
+    font-family: "Akaya Kanadaka", system-ui;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 20px; /* Añade margen superior */
+    transition: background-color 0.3s ease;
+}
+
+.denuncia-success-modal-content #modal-ok-button:hover {
+    background-color: #A9BF9C; /* Un tono un poco más oscuro al pasar el ratón */
+}
+
+/*Parte del Login*/
+/* --- Estilos específicos para el formulario de Login dentro del modal --- */
+
+/* Contenedor general de cada campo (Correo, Contraseña) */
+.modal-content .form-group {
+    font-family: "Akaya Kanadaka", system-ui;
+    margin-bottom: 20px; /* Espacio entre los grupos de formulario */
+    text-align: left; /* Alinea etiquetas e inputs a la izquierda */
+    /*position: relative; /* Para posicionar el ícono del ojo de la contraseña */
+    min-height: 90px;
+}
+
+/* Etiquetas de los campos */
+.modal-content .form-group label {
+    display: block; /* Para que la etiqueta ocupe su propia línea */
+    margin-bottom: 8px; /* Espacio entre la etiqueta y el input */
+    font-family: "Akaya Kanadaka", system-ui; /* Usar la misma fuente que el resto de Themis */
+    font-size: 1.2em; /* Tamaño de fuente para las etiquetas */
+    color: black; /* Color del texto de las etiquetas */
+}
+.modal-content .input-with-icon {
+    position: relative; /* ¡CLAVE! El icono se posicionará absolutamente dentro de este. */
+    display: block; /* Ocupa su propia línea */
+    /* Puedes darle un ancho si no quieres que ocupe el 100% de .form-group */
+    width: 100%; /* Para que el input dentro de él ocupe todo el espacio */
+}
+
+
+/* Campos de entrada (input) para correo y contraseña */
+.modal-content input[type="email"],
+.modal-content input[type="password"],
+.modal-content input[type="text"] {
+    font-family: "Akaya Kanadaka", system-ui;
+    background-color: #E5E5E5;
+    width: 100%; /* Ocupa casi todo el ancho, ajustado por padding/border */
+    padding: 12px 10px;
+    padding-right: 60px;
+    border: 1px solid #C2D7B4; /* Borde similar al diseño general de Themis */
+    border-radius: 15px;
+    font-size: 1em;
+    color: black;
+    box-sizing: border-box; /* Incluye padding y border en el ancho/alto */
+}
+
+.modal-content input[type="email"]:focus,
+.modal-content input[type="password"]:focus {
+    font-family: "Akaya Kanadaka", system-ui;
+    outline: none; /* Quita el contorno azul al enfocar */
+    border-color: #C2D7B4; /* Un color ligeramente diferente al enfocar */
+    box-shadow: 0 0 5px rgba(194, 215, 180, 0.5); /* Sombra suave al enfocar */
+}
+
+/* Estilo para el ícono de visibilidad de contraseña */
+.modal-content .toggle-password {
+    position: absolute;
+    right: 15px; /* Ajusta la posición a la derecha del input */
+    top: 50%; /* Centrar verticalmente en relación al input */
+    transform: translateY(-50%); /* Ajuste fino para centrar el icono con el texto */
+    cursor: pointer;
+    color: black; /* Color del ojo */
+    font-size: 1.5em; /* Tamaño del icono */
+    padding: 5px;
+}
+
+
+/* Opciones como "Recuérdame" y "¿Olvidaste tu contraseña?" */
+.modal-content .form-options {
+    display: flex;
+    justify-content: space-between; /* Para que "Recuérdame" y "¿Olvidaste?" estén en los extremos */
+    align-items: center;
+    margin-bottom: 30px; /* Espacio antes del botón Ingresar */
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1em;
+    color: black;
+}
+
+.modal-content .form-options label {
+    margin-bottom: 0; /* No necesita margen inferior si es inline */
+    display: inline-flex; /* Para alinear el checkbox con el texto */
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal-content .form-options input[type="checkbox"] {
+    margin-right: 8px; /* Espacio entre el checkbox y el texto */
+    transform: scale(1.2); /* Hacer el checkbox un poco más grande */
+}
+
+.modal-content .form-options a {
+    color: #6C7BBF; /* Un color azulado para los enlaces */
+    text-decoration: none; /* Sin subrayado por defecto */
+    font-weight: bold;
+    transition: color 0.2s ease;
+    margin-right: 40px;
+}
+
+.modal-content .form-options a:hover {
+    color: #4A5B9C; /* Color más oscuro al pasar el ratón */
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Botón de Ingresar */
+.modal-content .boton-ingresar {
+    background-color: #C2D7B4; /* Verde claro */
+    font-family: "Akaya Kanadaka", system-ui;
+    color: black;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.3em; /* Tamaño de fuente más grande */
+    font-weight: bold;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 250px; /* Pero con un ancho máximo para no ser demasiado grande */
+    margin: 0 auto; /* Centrar el botón */
+    display: block; /* Para que margin: auto funcione */
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .boton-ingresar:hover {
+    background-color: #A9BF9C; /* Un verde un poco más oscuro al pasar el ratón */
+}
+
+.error-message {
+    color: red; /* Color del texto del error */
+    font-size: 0.9em; /* Tamaño de fuente más pequeño */
+    margin-top: 5px; /* Espacio encima del mensaje */
+    display: block; /* Para que ocupe su propia línea */
+    text-align: left; /* Alineado con el input */
+    visibility: hidden; /* Oculto por defecto */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.error-message.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Puedes añadir un estilo para el input cuando tiene un error */
+.modal-content input.invalid {
+    border-color: red;
+}

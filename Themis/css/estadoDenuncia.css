@@ -1,0 +1,164 @@
+.estado-denuncia-wrapper {
+    width: 100%;
+    max-width: 750px; /* Mantener este max-width para el ancho general del cuadro */
+    /* El margin-top lo manejaremos en el CSS específico. */
+    /* margin-top: 20px; <-- Asegúrate de que esta línea esté comentada o eliminada si la tienes */
+    border-radius: 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+    /* Los colores de fondo y borde se definirán en los CSS específicos */
+}
+
+.main-content-estado {
+    padding: 25px 30px;
+    /* margin-top: 20px; <-- Asegúrate de que esta línea esté comentada o eliminada si la tienes */
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+
+/* Estilos de los títulos de sección (Estado de la Denuncia, Archivos, Información Personal) */
+.sub-seccion-titulo {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed;
+}
+
+/* Contenedor general para los ítems de detalle (Estado, Código, etc.) */
+.denuncia-detalle-item {
+    display: flex;
+    font-family: "Akaya Kanadaka", system-ui;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.denuncia-detalle-item label {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: black;
+    flex-basis: 150px;
+    min-width: 120px;
+
+}
+
+.denuncia-detalle-item span,
+.denuncia-detalle-item p {
+    width: 600px;
+    padding: 8px 12px;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    background-color: #E5E5E5;
+    min-height: 15px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.denuncia-detalle-item.full-width {
+    flex-basis: 100%;
+}
+
+.denuncia-detalle-item.full-width label {
+    flex-basis: 100%;
+    margin-bottom: 5px;
+}
+
+.denuncia-detalle-item.full-width p {
+    flex-basis: 100%;
+    min-height: 80px;
+    align-items: flex-start;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.form-row .denuncia-detalle-item {
+    margin-bottom: 0;
+}
+
+.form-row .half-width {
+    flex-basis: calc(50% - 10px);
+    max-width: calc(50% - 10px);
+}
+
+.form-row .third-width {
+    flex-basis: calc(33.333% - 13.333px);
+    max-width: calc(33.333% - 13.333px);
+}
+
+.seccion-archivos-adjuntos ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.seccion-archivos-adjuntos ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: black;
+}
+
+.seccion-archivos-adjuntos ul li .material-symbols-outlined {
+    font-size: 1.2em;
+    margin-right: 8px;
+    color: #777;
+}
+
+.seccion-archivos-adjuntos ul li a {
+    color: #4a5d7c;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.seccion-archivos-adjuntos ul li a:hover {
+    text-decoration: underline;
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-weight: bold;
+}
+
+.loading-message {
+    background-color: #e6f7ff;
+    border: 1px solid #91d5ff;
+    color: #1890ff;
+}
+
+.error-message {
+    background-color: #fff1f0;
+    border: 1px solid #ffa39e;
+    color: #cf1322;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .form-row .half-width,
+    .form-row .third-width {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .denuncia-detalle-item label {
+        flex-basis: auto;
+        min-width: unset;
+    }
+}

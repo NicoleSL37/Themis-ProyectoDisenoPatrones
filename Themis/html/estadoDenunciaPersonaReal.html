@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Themis" />
+        <link rel="manifest" href="../site.webmanifest" />
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/encabezado.css">
+    <link rel="stylesheet" href="../css/bienvenida.css">
+    <link rel="stylesheet" href="../css/estadoDenunciaPersonaReal.css">
+    <link rel="stylesheet" href="../css/estadoDenuncia.css">
+    <title>Consultar Denuncia - Themis</title>
+</head>
+<body>
+    <header class="encabezado-principal">
+            <div class="contenedor-themis">
+                <a href="../html/paginaPrincipal.html" class="logo-link"><img src="../img/logo_themis.png" alt="Logo de Themis">
+                <span>Themis</span>
+                </a><div class="barra-separadora-izq"></div>
+            </div>
+            <div class="buscador-encabezado">
+                <input type="text">
+                <button>
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <div class="barra-separadora-der"></div>
+            <button class="user-icon">
+                <span class="material-symbols-outlined">account_circle</span>
+            </button>
+            <button class="olympus-coso">
+                <span class="material-symbols-outlined">account_balance</span>
+            </button>
+        </header>
+        <main class="main-layout-consulta">
+        <div class="estado-denuncia-wrapper persona-real">
+            <div class="titulo-consulta-container">
+                <h2 class="seccion-titulo">Estado de su Denuncia de Persona Real</h2>
+            </div>
+
+            <div class="main-content-estado">
+
+                <section id="resultadoDenuncia" class="resultado-consulta">
+                    <div class="seccion-denuncia-estado">
+                        <h4 class="sub-seccion-titulo">Detalles de la Denuncia</h4>
+                        <div class="denuncia-detalle-item">
+                            <label>Estado:</label>
+                            <span id="estadoDenuncia"></span>
+                        </div>
+                        <div class="denuncia-detalle-item">
+                            <label>Código:</label>
+                            <span id="codigoResultado"></span>
+                        </div>
+                        <div class="denuncia-detalle-item">
+                            <label>Tipo:</label>
+                            <span id="tipoResultado"></span>
+                        </div>
+                        <div class="denuncia-detalle-item">
+                            <label>Fecha de Registro:</label>
+                            <span id="fechaRegistro"></span>
+                        </div>
+                        <div class="denuncia-detalle-item full-width">
+                            <label>Descripción:</label>
+                            <p id="descripcionDenuncia"></p>
+                        </div>
+                    </div>
+
+                    <div class="seccion-archivos-adjuntos" id="archivosAdjuntosSection">
+                        <h4 class="sub-seccion-titulo">Archivos Adjuntos:</h4>
+                        <ul id="archivosAdjuntosList">
+                            </ul>
+                    </div>
+
+                    <div class="seccion-informacion-personal" id="informacionPersonalResultadoSection">
+                        <h4 class="sub-seccion-titulo">Información Personal del Denunciante</h4>
+                        <div class="form-row">
+                            <div class="denuncia-detalle-item half-width">
+                                <label>Tipo de Documento:</label>
+                                <span id="tipoDocumentoResultado"></span>
+                            </div>
+                            <div class="denuncia-detalle-item half-width">
+                                <label>Nro de Documento:</label>
+                                <span id="numeroDocumentoResultado"></span>
+                            </div>
+                        </div>
+                        <div class="denuncia-detalle-item full-width">
+                            <label>Correo:</label>
+                            <span id="correoResultado"></span>
+                        </div>
+                        <div class="form-row nombres-completos">
+                            <div class="denuncia-detalle-item third-width">
+                                <label>Apellido Paterno:</label>
+                                <span id="apellidoPaternoResultado"></span>
+                            </div>
+                            <div class="denuncia-detalle-item third-width">
+                                <label>Apellido Materno:</label>
+                                <span id="apellidoMaternoResultado"></span>
+                            </div>
+                            <div class="denuncia-detalle-item third-width">
+                                <label>Nombre:</label>
+                                <span id="nombreResultado"></span>
+                            </div>
+                        </div>
+                    </diV>
+                </section>
+            </div>
+        </div>
+    </main>
+    <script src="../javascript/estadoDenunciaPersonaReal.js"></script>
+</body>
+</html>

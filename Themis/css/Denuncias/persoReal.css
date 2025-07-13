@@ -1,0 +1,613 @@
+body { 
+    margin: 0;
+    background-color: #E5E5E5; 
+}
+
+/*------------------------------------------------------------------------------------*/
+
+/* Contenedor principal de toda la página del formulario */
+
+/* Contenedor principal del formulario (la caja blanca con sombra) */
+.form-contenedor {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.2em;
+    background-color: #E5E5E5;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1200px; /* Ancho máximo para el formulario */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    /* gap: 25px; /* Espacio entre los bloques principales si usas flexbox */
+}
+
+/* Estilos para las líneas horizontales en general */
+.linea-horizontal {
+    height: 2px; /* Grosor de la línea */
+    background-color: #C2D7B4; /* Color de la línea (tu verde claro) */
+    width: 100%; /* La línea ocupará todo el ancho de su contenedor padre */
+    box-sizing: border-box; /* Asegura que el ancho sea el 100% incluyendo padding/border si los tuviera */
+}
+
+/* Margen específico para la línea superior */
+.top-line {
+    margin-bottom: 4px; /* Espacio entre la línea superior y el título */
+}
+
+/* Margen específico para la línea inferior */
+.bottom-line {
+    margin-top: 5px; /* Espacio entre el título y la línea inferior */
+    margin-bottom: 20px; /* Espacio debajo de la línea inferior antes de los campos */
+}
+
+/* Estilos para el título de la sección */
+.seccion-titulo {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 18px; /* Tamaño de fuente. Puedes ajustarlo. */
+    color: black;
+    text-align: left; /* Alinea el texto a la izquierda, como en tu imagen */
+    margin: 0; /* Elimina márgenes por defecto para un control más preciso */
+    padding: 0 20px; /* Elimina paddings por defecto */
+    white-space: nowrap; /* Evita que el título se divida en varias líneas */
+}
+
+/* Estilos para las secciones del formulario multipaso (visibilidad) */
+.form-section {
+    display: none; /* Por defecto, todas las secciones están ocultas */
+    flex-direction: column; /* Contenido de la sección se apila en columna */
+    gap: 20px; /* Espacio entre los elementos de la sección */
+}
+
+.form-section.active {
+    display: flex; /* Muestra la sección activa */
+}
+
+/* Título principal de las sub-secciones (ej. "Denuncia de Persona Real" - el segundo h2) */
+/* NOTA: Tu HTML usaba h2 para el título principal de la sección y h3 para Persona Real.
+   He ajustado el HTML y el CSS para que h3 sea 'Persona Real' y h2 sea 'Denuncia de Persona Real'. */
+.form-section .section-main-title { /* Si el h2 de la sección es un .section-main-title también */
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 2em; /* Tamaño grande para el título de la sección */
+    color: black;
+    text-align: center;
+    margin-top: 30px; /* Espacio arriba del título */
+    margin-bottom: 20px;
+}
+
+/* Descripción de la sección (ej. "Gracias por su confianza...") */
+.section-description {
+    font-family: "Akaya Kanadaka", system-ui; /* Puedes cambiar a Akaya Kanadaka si prefieres */
+    font-size: 1.5em;
+    color: black;
+    text-align: center;
+    margin-bottom: 10px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Estilos para cada subsección (Fecha y Hora, Ubicación) */
+.form-subsection {
+    font-family: "Akaya Kanadaka", system-ui; 
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    /* border-bottom: 1px solid #eee; /* Línea divisoria suave si la deseas */
+}
+
+.form-subsection:last-of-type {
+    border-bottom: none;
+}
+
+/* Títulos de las subsecciones (ej. "Fecha y Hora del Incidente:") */
+.subsection-title {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.6em;
+    color: black;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #C2D7B4; /* Línea verde debajo del título de subsección */
+}
+
+
+/* Contenedor para cada fila de campos del formulario */
+/* Reemplaza .contenido-persoReal por .form-row */
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos salten de línea en pantallas pequeñas */
+    gap: 20px; /* Espacio entre los grupos de formulario */
+    margin-bottom: 20px;
+    align-items: flex-end; /* Alinea los grupos por la parte inferior para que las labels se vean alineadas */
+}
+
+/* Contenedor para cada campo individual (label + input/select) */
+/* Tu .form-grupo es ahora .form-group */
+.form-group {
+    flex: 1; /* Permite que los grupos crezcan para llenar el espacio */
+    display: flex;
+    flex-direction: column; /* Apila la label y el input verticalmente */
+}
+
+/* Reglas para distribuir los campos en 2 columnas */
+.form-row.two-columns .form-group { /* Cambiado de .contenido-persoReal.dos-columnas a .form-row.two-columns */
+    flex-basis: calc(50% - 100px); /* 50% de ancho con un pequeño ajuste para el gap */
+    min-width: 250px; /* Ancho mínimo para que los campos no se compriman demasiado */
+}
+.custom-select-wrapper {
+    position: relative; /* FUNDAMENTAL para que .custom-options se posicione correctamente */
+    width: 100%; /* O el ancho que desees */
+    /* ... otros estilos ... */
+}
+
+/* Las reglas que ya tienes para .custom-select-trigger son correctas */
+.custom-select-trigger {
+    display: flex;
+    justify-content: space-between; /* Empuja la flecha a la derecha */
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1rem; /* Asegúrate de que este font-size sea consistente con otros inputs */
+    color: black;
+    box-sizing: border-box;
+    min-height: 2.5rem; /* Asegura una altura mínima, si tus otros inputs la tienen */
+}
+
+/* Las reglas que ya tienes para .select-arrow son correctas */
+.select-arrow {
+    margin-left: 0.5rem;
+    font-size: 1.5rem; /* El tamaño de 1.2rem que tienes es un poco pequeño, 1.5rem suele ser mejor */
+    color: #333;
+    /* ... otras propiedades de Material Symbols ... */
+    transition: transform 0.3s ease; /* Para la rotación */
+}
+
+/* Rota la flecha cuando el select está abierto */
+.custom-select-wrapper.active .select-arrow {
+    transform: rotate(180deg);
+}
+
+
+/* ESTILOS CLAVE PARA LA LISTA DESPLEGABLE DE OPCIONES */
+.custom-options {
+    display: none; /* ¡OCULTO POR DEFECTO! JavaScript lo mostrará/ocultará */
+    position: absolute; /* Posiciona la lista en relación con .custom-select-wrapper */
+    top: 100%; /* Se muestra justo debajo del .custom-select-trigger */
+    left: 0;
+    width: 100%; /* Mismo ancho que el trigger */
+    background-color: #fff; /* Fondo blanco para la lista de opciones */
+    border: 1px solid #ccc; /* Borde de la lista */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    list-style: none; /* ¡MUY IMPORTANTE! QUITA LAS VIÑETAS por defecto del <ul> */
+    padding: 0; /* Quita el padding por defecto del <ul> */
+    margin: 5px 0 0 0; /* Pequeño margen entre el trigger y la lista */
+    z-index: 100; /* Asegura que la lista aparezca por encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    max-height: 200px; /* Altura máxima con scroll si hay muchas opciones */
+    overflow-y: auto; /* Habilita el scroll vertical */
+}
+
+.custom-options li {
+    padding: 0.75rem 1rem; /* Espaciado interno para cada opción */
+    cursor: pointer; /* Cursor de puntero al pasar por encima */
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1rem;
+    color: black;
+    /* Asegura que no haya viñetas aquí tampoco, aunque `list-style: none` en el `ul` ya debería ser suficiente */
+    list-style: none;
+}
+
+.custom-options li:hover {
+    background-color: #f0f0f0; /* Fondo gris claro al pasar el mouse por encima */
+}
+
+/* Clase que JavaScript activa para mostrar las opciones */
+.custom-select-wrapper.active .custom-options {
+    display: block; /* Muestra la lista cuando el wrapper tiene la clase 'active' */
+}
+
+
+/* Reglas para distribuir los campos en 3 columnas */
+.form-row.three-columns .form-group { /* Cambiado de .contenido-persoReal.tres-columnas a .form-row.three-columns */
+    flex-basis: calc(33.33% - 14px); /* 33.33% de ancho con un pequeño ajuste para el gap */
+    min-width: 180px; /* Ancho mínimo para que los campos no se compriman demasiado */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    opacity: 0; /* Hace el icono invisible */
+    position: absolute; /* Permite que otros elementos lo superpongan */
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Mantiene el cursor de puntero para indicar interactividad */
+    background: transparent; /* Asegura que no haya fondo extra */
+    color: transparent; /* Oculta cualquier parte visible del icono */
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Elimina cualquier margen */
+}
+
+/* Estilos para los campos de entrada de texto, email, time y select */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="time"], /* Añadido para los inputs de hora */
+.form-group select {
+    width: 100%; /* Ocupa todo el ancho de su contenedor (.form-group) */
+    padding: 10px 12px;
+    border: 1px solid black;
+    border-radius: 15px;
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1em;
+    box-sizing: border-box; /* Crucial: padding y border se incluyen en el ancho/alto */
+    background-color: transparent;
+    -webkit-appearance: none;  /* Ligeramente diferente del fondo de la página */
+    appearance: none;
+}
+
+.form-group input[type="date"] {
+    width: 100%; /* Ajusta el ancho como necesites */
+    padding: 0.75rem 1rem; /* Asegúrate de que haya suficiente padding */
+    border: 1px solid black;
+    border-radius: 1rem;
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1rem;
+    background-color: transparent;
+    box-sizing: border-box;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+}
+
+.form-group input:focus, /* Selector más genérico para todos los inputs */
+.form-group select:focus {
+    border-color: #C2D7B4; /* Un color de borde al enfocar, similar a tu paleta */
+    outline: none; /* Elimina el contorno predeterminado del navegador */
+}
+
+/* Contenedor para inputs que tienen un icono (como el calendario) */
+/* Renombrado de .icon-input a .input-with-icon para consistencia con la sugerencia anterior */
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+/* Ajuste del padding para el input con icono, para dejar espacio al icono */
+.input-with-icon input {
+    padding-right: 40px; 
+}
+
+/* Estilos para el icono de Material Symbols dentro de un input */
+.input-with-icon .material-symbols-outlined { /* Selector más genérico para todos los iconos */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Centra verticalmente el icono */
+    color: black; /* Color del icono */
+    cursor: pointer;
+    font-size: 1.4em;
+}
+
+/* Estilo específico para el checkbox "Ahora:" */
+.form-group input[type="checkbox"] {
+    width: auto; /* Evita que el checkbox ocupe todo el ancho */
+    height: 28px; /* Tamaño del checkbox */
+    margin-top: 20px; /* Espacio para alinearlo con el label */
+    align-self: flex-start; /* Asegura que no se centre verticalmente */
+    accent-color: #C2D7B4; /* Color del checkbox (funciona en navegadores modernos) */
+}
+
+
+/* Contenedor para el checkbox de consentimiento */
+.form-consent {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el checkbox y el texto */
+    margin-top: 30px;
+    margin-bottom: 40px;
+    justify-content: center; /* Centra el checkbox y el texto */
+    padding: 0 10px; /* Pequeño padding si el texto llega a los bordes */
+}
+
+/* Estilos para la etiqueta del checkbox */
+.form-consent label {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 1.5em;
+    color: black;
+    cursor: pointer;
+}
+
+/* Botones de navegación del formulario (Continuar, Atrás, Enviar) */
+/* Reemplaza .continue-button por .form-button para consistencia */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 30px;
+}
+
+.form-button { /* Nuevo selector para todos los botones del formulario */
+    font-family: "Akaya Kanadaka", system-ui;
+    background-color: #6C86CB; /* Color de botón azul similar al de tu imagen */
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.3em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: fit-content; /* El botón solo ocupa el ancho de su contenido */
+    /* margin: 0 auto; /* Quita esto, ya lo alinea flex-end en .form-buttons */
+    /* display: block; /* Quita esto, ya lo maneja flex */
+}
+
+.form-button:hover {
+    background-color: #5D7EB3; /* Un azul ligeramente más oscuro al pasar el ratón */
+}
+
+/* Estilo específico para el botón "Atrás" */
+.form-button#btn-atras-incidente {
+    background-color: #888; /* Un color gris para "Atrás" */
+}
+
+.form-button#btn-atras-incidente:hover {
+    background-color: #666;
+}
+
+.file-upload-area {
+    border: 2px dashed black;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px; /* Altura mínima para que sea visible */
+    background-color: #E5E5E5; /* Un color de fondo suave */
+}
+
+.file-upload-area:hover,
+.file-upload-area.highlight {
+    background-color: #E5E5E5; /* Color al pasar el ratón o arrastrar */
+    border-color: #007bff; /* Color de borde al resaltar */
+}
+
+.file-upload-area p {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #555;
+}
+
+.file-upload-area .upload-icon {
+    font-size: 3rem; /* Tamaño grande para el icono */
+    color: #007bff; /* Color del icono */
+    margin-bottom: 10px;
+}
+
+#file-list {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #333;
+    width: 100%;
+    text-align: left; /* Alinea los nombres de archivo a la izquierda */
+}
+
+#file-list div {
+    background-color: #E5E5E5;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    word-break: break-all; /* Rompe palabras largas */
+}
+
+/* Estilo para el textarea de descripción */
+#descripcion-hechos {
+    font-family: "Akaya Kanadaka", system-ui;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 1rem;
+    min-height: 120px; /* Altura mínima para el textarea */
+    resize: vertical; /* Permite redimensionar verticalmente */
+    box-sizing: border-box; /* Incluye padding y border en el width/height */
+    background-color: #E5E5E5; /* ¡Asegúrate de que este sea el mismo color que el fondo de la página/contenedor! */
+}
+
+.section-description-text {
+    font-family: "Akaya Kanadaka", system-ui;
+    font-size: 0.9em;
+    color: black;
+    margin-bottom: 15px;
+    
+}
+
+/* Media Queries para responsividad (opcional pero recomendado) */
+@media (max-width: 768px) {
+    .form-contenedor {
+        padding: 25px;
+    }
+    .form-row.two-columns .form-group,
+    .form-row.three-columns .form-group {
+        flex-basis: 100%; /* Una columna en pantallas pequeñas */
+        min-width: unset; /* Quita el min-width */
+    }
+    .title-with-lines .section-main-title {
+        font-size: 1.5em;
+    }
+    .section-description {
+        font-size: 1em;
+    }
+    .form-button {
+        font-size: 1.1em;
+        padding: 10px 20px;
+    }
+    .form-buttons {
+        justify-content: center; /* Centra los botones en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-contenedor {
+        padding: 15px;
+    }
+    .form-consent {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    .form-consent input[type="checkbox"] {
+        margin-bottom: 5px;
+    }
+}
+
+.denuncia-success-modal-backdrop {
+    display: none; /* Oculto por defecto. JavaScript lo hará visible con 'display: flex' */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente oscuro */
+    display: flex; /* Para centrar el contenido (debería ser 'flex' cuando esté activo) */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+/* Contenido del modal (la caja blanca) */
+.denuncia-success-modal-content {
+    background-color: #E5E5E5;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    position: relative; /* Para posicionar el botón de cierre */
+    font-family: "Akaya Kanadaka", system-ui; /* Ajusta la fuente */
+    font-size: 1.1em; /* Tamaño base para el texto del modal */
+}
+
+/* Botón de cierre (la 'x') */
+.denuncia-success-close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2em;
+    color: black;
+    cursor: pointer;
+    line-height: 1; /* Asegura que la 'x' no tenga espacio extra */
+    transition: color 0.3s ease;
+}
+
+.denuncia-success-close-button:hover {
+    color: black;
+}
+
+/* Título del modal */
+.denuncia-success-modal-content h2 {
+    font-size: 2.2em;
+    color: #C2D7B4; /* Un color verde para el éxito */
+    margin-bottom: 15px;
+}
+
+/* Párrafos del modal */
+.denuncia-success-modal-content p {
+    margin-bottom: 10px;
+    color: black;
+    line-height: 1.4;
+}
+
+/* Contenedor del código de seguimiento */
+.codigo-denuncia-modal {
+    background-color: #E5E5E5; /* Fondo más claro para el código */
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column; /* Apila el texto y el código */
+    align-items: center; /* Centra el contenido */
+    border: 3px dashed #C2D7B4; /* Borde punteado para resaltar */
+}
+
+.codigo-denuncia-modal p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: black;
+}
+
+/* Estilo para el código de denuncia */
+#codigoDenunciaDisplay {
+    font-size: 1.5em;
+    color: #6C86CB; /* Color azul para el código */
+    letter-spacing: 1px; /* Espaciado entre letras para mejor lectura */
+    font-weight: bold;
+    margin-bottom: 25px; /* Espacio antes del botón de copiar */
+    word-break: break-all; /* Para códigos largos */
+}
+
+/* Botones dentro del modal (Copiar, Aceptar, Ir a Seguimiento) */
+.denuncia-success-modal-content .btn { /* Estilos base si ya los tienes definidos */
+    font-family: "Akaya Kanadaka", system-ui;
+    padding: 9px 21px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Para el enlace "Ir a Seguimiento" */
+    display: inline-block; /* Para que los botones se comporten bien en línea */
+}
+
+.denuncia-success-modal-content .btn-primary {
+    background-color: #6C86CB; /* Azul, similar a tus otros botones primarios */
+    color: white;
+    border: none;
+    margin-top: 15px; /* Espacio antes del botón principal */
+}
+
+
+.denuncia-success-modal-content .btn-primary:hover {
+    background-color: #5D7EB3;
+}
+
+.denuncia-success-modal-content .btn-secondary { /* Estilo para el botón de Copiar Código */
+    background-color: #C2D7B4; /* Verde claro de tu paleta */
+    color: black;
+    border: 1px solid #C2D7B4;
+    margin-left: 10px; /* Espacio a la derecha del código */
+}
+
+.denuncia-success-modal-content .btn-secondary:hover {
+    background-color: #A9BF9C;
+}
+
+/* Media Queries específicas para el modal si es necesario */
+@media (max-width: 600px) {
+    .denuncia-success-modal-content {
+        padding: 20px 25px;
+    }
+    .denuncia-success-modal-content h2 {
+        font-size: 1.8em;
+    }
+    .denuncia-success-modal-content p {
+        font-size: 1em;
+    }
+    #codigoDenunciaDisplay {
+        font-size: 1.5em;
+    }
+    .denuncia-success-modal-content .btn {
+        font-size: 1em;
+        padding: 8px 20px;
+    }
+}
