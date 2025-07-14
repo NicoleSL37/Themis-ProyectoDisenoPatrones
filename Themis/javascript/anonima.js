@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Asegúrate de que esta ruta sea correcta para tu archivo ubigeo.json
             // Si el archivo JSON está en la misma carpeta que este JS: './ubigeo.json'
             // Si está en 'javascript/data/ubigeo.json' y este JS está en 'javascript/': './data/ubigeo.json'
-            const response = await fetch('/javascript/ubigeo.json');
+            const response = await fetch('../javascript/ubigeo.json');
             ubigeoData = await response.json();
             populateDepartamentos(); // Llenar el select de departamentos al cargar
         } catch (error) {

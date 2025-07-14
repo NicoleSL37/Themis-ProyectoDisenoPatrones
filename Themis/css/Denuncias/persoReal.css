@@ -39,7 +39,7 @@ body {
 /* Margen específico para la línea inferior */
 .bottom-line {
     margin-top: 5px; /* Espacio entre el título y la línea inferior */
-    margin-bottom: 20px; /* Espacio debajo de la línea inferior antes de los campos */
+    margin-bottom: 10px; /* Espacio debajo de la línea inferior antes de los campos */
 }
 
 /* Estilos para el título de la sección */
@@ -58,6 +58,7 @@ body {
     display: none; /* Por defecto, todas las secciones están ocultas */
     flex-direction: column; /* Contenido de la sección se apila en columna */
     gap: 20px; /* Espacio entre los elementos de la sección */
+    margin-bottom: 20px;
 }
 
 .form-section.active {

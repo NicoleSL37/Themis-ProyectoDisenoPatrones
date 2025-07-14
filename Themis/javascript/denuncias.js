@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Botón "Iniciar Denuncia (Persona Real)" clicado. Redirigiendo...');
             closeModalTipoDenuncia(); 
             // IMPORTANTE: Asegúrate de que esta ruta sea la correcta para tu archivo personaReal.html
-            window.location.href = '/html/personaReal.html'; // Asegúrate de que esta ruta es la que usas
+            window.location.href = '../html/personaReal.html'; // Asegúrate de que esta ruta es la que usas
         });
     } else {
         console.error('Error: El botón "Iniciar Denuncia (Persona Real)" con ID "btn-iniciar-persona-real" NO FUE ENCONTRADO en el DOM.');
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             console.log('Botón "Iniciar Denuncia (Anónimo)" clicado. Redirigiendo...');
             closeModalTipoDenuncia();
-            window.location.href = '/html/denunciaAnonimo.html'; // <--- RUTA A LA NUEVA PÁGINA ANÓNIMA
+            window.location.href = '../html/denunciaAnonimo.html'; // <--- RUTA A LA NUEVA PÁGINA ANÓNIMA
         });
     } else {
         console.error('Error: El botón "Iniciar Denuncia (Anónimo)" con ID "btn-iniciar-anonimo" NO FUE ENCONTRADO en el DOM.');

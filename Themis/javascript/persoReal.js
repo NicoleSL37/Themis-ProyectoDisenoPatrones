@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadUbigeoData() {
         try {
             // Asegúrate de que esta ruta sea correcta para tu archivo ubigeo.json
-            const response = await fetch('/javascript/ubigeo.json');
+            const response = await fetch('../javascript/ubigeo.json');
             ubigeoData = await response.json();
             populateDepartamentos(); // Llenar el select de departamentos al cargar
             console.log('Ubigeo.json cargado con éxito');
