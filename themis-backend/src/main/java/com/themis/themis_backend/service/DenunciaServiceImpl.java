@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DenunciaServiceImpl implements IDenunciaService {
-
     private final DenunciaRepository denunciaRepository;
-
+    
     public DenunciaServiceImpl(DenunciaRepository denunciaRepository) {
         this.denunciaRepository = denunciaRepository;
     }
@@ -22,14 +21,12 @@ public class DenunciaServiceImpl implements IDenunciaService {
     @Override
     @Transactional
     public DenunciaAnonima crearDenunciaAnonima(DenunciaAnonima denunciaAnonima) {
-
         return denunciaRepository.save(denunciaAnonima);
     }
 
     @Override
     @Transactional
     public DenunciaPersonaReal crearDenunciaPersonaReal(DenunciaPersonaReal denunciaPersonaReal) {
-
         return denunciaRepository.save(denunciaPersonaReal);
     }
 
@@ -48,14 +45,12 @@ public class DenunciaServiceImpl implements IDenunciaService {
     @Override
     @Transactional(readOnly = true)
     public List<Denuncia> listarDenunciasAnonimas() {
-
         return denunciaRepository.findByAnonimo(true);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Denuncia> listarDenunciasPersonaReal() {
-
         return denunciaRepository.findByAnonimo(false);
     }
 
@@ -63,7 +58,6 @@ public class DenunciaServiceImpl implements IDenunciaService {
     @Transactional
     public Denuncia actualizarEstadoDenuncia(Long id, String nuevoEstado) {
         Denuncia denuncia = denunciaRepository.findById(id)
-                // <-- CAMBIO AQUÍ: Reemplazar RuntimeException por ResourceNotFoundException
                 .orElseThrow(() -> new ResourceNotFoundException("Denuncia no encontrada con ID: " + id));
         denuncia.setEstado(nuevoEstado);
 
@@ -74,7 +68,6 @@ public class DenunciaServiceImpl implements IDenunciaService {
     @Transactional
     public void eliminarDenuncia(Long id) {
         if (!denunciaRepository.existsById(id)) {
-            // <-- CAMBIO AQUÍ: Reemplazar RuntimeException por ResourceNotFoundException
             throw new ResourceNotFoundException("Denuncia no encontrada con ID: " + id);
         }
         denunciaRepository.deleteById(id);

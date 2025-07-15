@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +21,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(JwtService jwtService, @Lazy UserDetailsService userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
@@ -44,23 +45,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtService.extractUsername(jwt);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            // 5. Cargar los detalles del usuario usando nuestro UserDetailsService
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-            // 6. Validar el token
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            
             if (jwtService.isTokenValid(jwt, userDetails)) {
-                // 7. Si el token es válido, crear un objeto de autenticación
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
-                        null, // Las credenciales son null porque el token ya autenticó
-                        userDetails.getAuthorities() // Los roles/autoridades del usuario
+                        null, 
+                        userDetails.getAuthorities() 
                 );
-                // Establecer detalles de autenticación (ej. IP del cliente)
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
-                // 8. Establecer el objeto de autenticación en el SecurityContextHolder
-                // Esto es crucial para que Spring Security marque al usuario como autenticado
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

@@ -2,8 +2,10 @@ package com.themis.themis_backend.controller;
 
 import com.themis.themis_backend.dto.AuthenticationRequest;
 import com.themis.themis_backend.dto.AuthenticationResponse;
+import com.themis.themis_backend.model.Rol;
 import com.themis.themis_backend.security.JwtService;
 import com.themis.themis_backend.service.UsuarioServiceImpl;
+import java.util.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,18 +46,15 @@ public class AuthController {
         } catch (AuthenticationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
         }
+        com.themis.themis_backend.model.Usuario authenticatedUserEntity = usuarioService.buscarPorNombreUsuario(request.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Usuario autenticado no encontrado en el sistema."));
 
         UserDetails userDetails = usuarioService.loadUserByUsername(request.getUsername());
         String jwtToken = jwtService.generateToken(userDetails);
 
-        Long userId = null;
-        if (userDetails instanceof com.themis.themis_backend.model.Usuario) {
-            userId = ((com.themis.themis_backend.model.Usuario) userDetails).getIdUsuario();
-        } else {
-            userId = usuarioService.buscarPorNombreUsuario(request.getUsername())
-                    .map(u -> u.getIdUsuario())
-                    .orElse(null);
-        }
-        return ResponseEntity.ok(new AuthenticationResponse(jwtToken, userDetails.getUsername(), userId));
+        Long userId = authenticatedUserEntity.getIdUsuario();
+        Set<Rol> userRoles = authenticatedUserEntity.getRoles();
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwtToken, userDetails.getUsername(), userId, userRoles));
     }
 }

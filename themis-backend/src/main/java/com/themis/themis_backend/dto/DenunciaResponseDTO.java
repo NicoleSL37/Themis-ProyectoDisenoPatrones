@@ -10,13 +10,13 @@ import java.time.LocalTime;
 import java.util.List;
 
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME, // Usar el nombre de la clase o un valor custom
-        include = JsonTypeInfo.As.PROPERTY, // Añadir una propiedad al JSON para el tipo
-        property = "denunciaTipo" // Nombre de la propiedad en el JSON que indica el tipo
+        use = JsonTypeInfo.Id.NAME, 
+        include = JsonTypeInfo.As.PROPERTY, 
+        property = "denunciaTipo" 
 )
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = DenunciaAnonimaResponseDTO.class, name = "ANONIMA"), // Mapea DenunciaAnonimaResponseDTO al tipo "ANONIMA"
-    @JsonSubTypes.Type(value = DenunciaPersonaRealResponseDTO.class, name = "REAL") // Mapea DenunciaPersonaRealResponseDTO al tipo "REAL"
+    @JsonSubTypes.Type(value = DenunciaAnonimaResponseDTO.class, name = "ANONIMA"), 
+    @JsonSubTypes.Type(value = DenunciaPersonaRealResponseDTO.class, name = "REAL") 
 })
 // -->>
 @JsonInclude(JsonInclude.Include.NON_NULL)

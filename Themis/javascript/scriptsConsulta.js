@@ -51,18 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formConsultaDenuncia) {
         formConsultaDenuncia.addEventListener('submit', async (event) => {
             event.preventDefault();
-
-            // Limpiar y ocultar resultados/mensajes anteriores
-            // Se verifica que 'resultadoConsultaDiv' y 'mensajeErrorConsultaP' existan.
             if (resultadoConsultaDiv) resultadoConsultaDiv.classList.add('hidden');
             if (mensajeErrorConsultaP) mensajeErrorConsultaP.textContent = '';
-
             // Se verifica que los inputs existan antes de acceder a sus valores.
             const tipoDenuncia = tipoDenunciaSelect ? tipoDenunciaSelect.value : '';
             const codigoDenuncia = codigoDenunciaInput ? codigoDenunciaInput.value : '';
             const tipoDocumento = tipoDocumentoInput ? tipoDocumentoInput.value : '';
             const numeroDocumento = numeroDocumentoInput ? numeroDocumentoInput.value : '';
-
             // Validaciones en el frontend
             if (!tipoDenuncia) {
                 if (mensajeErrorConsultaP) mensajeErrorConsultaP.textContent = 'Por favor, seleccione un tipo de denuncia.';
@@ -74,22 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (resultadoConsultaDiv) resultadoConsultaDiv.classList.remove('hidden');
                 return;
             }
-
             if (tipoDenuncia === 'personaReal' && (!tipoDocumento || !numeroDocumento)) {
                 if (mensajeErrorConsultaP) mensajeErrorConsultaP.textContent = 'Para Denuncia de Persona Real, complete el Tipo y Número de Documento.';
                 if (resultadoConsultaDiv) resultadoConsultaDiv.classList.remove('hidden');
                 return;
             }
-
             let url = `http://localhost:8080/api/consultar-denuncia?tipoDenuncia=${tipoDenuncia}&codigoDenuncia=${codigoDenuncia}`;
-
             if (tipoDenuncia === 'personaReal') {
                 url += `&tipoDocumento=${encodeURIComponent(tipoDocumento)}&numeroDocumento=${encodeURIComponent(numeroDocumento)}`;
             }
-
-
             console.log("URL de consulta generada:", url);
-
             try {
                 const response = await fetch(url);
                 const data = await response.json();

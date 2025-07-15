@@ -17,11 +17,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+
 import org.springframework.http.MediaType;
-import java.net.MalformedURLException;
+
 import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.nio.file.Paths;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;

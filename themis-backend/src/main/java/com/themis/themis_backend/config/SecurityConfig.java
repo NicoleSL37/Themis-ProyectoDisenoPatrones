@@ -3,10 +3,10 @@ package com.themis.themis_backend.config;
 import com.themis.themis_backend.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +26,8 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, UserDetailsService userDetailsService) {
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, @Lazy UserDetailsService userDetailsService) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
     }
@@ -57,7 +58,7 @@ public class SecurityConfig {
                 // Permite el acceso sin autenticación a las rutas de registro y autenticación
                 .requestMatchers("/api/usuarios/registro", "/api/auth/**").permitAll() // <<-- Añade /api/auth/**
                 // Permite el acceso a la consola H2 (solo para desarrollo)
-                // .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMINISTRADOR")
                 // Cualquier otra solicitud requiere autenticación
                 .anyRequest().authenticated()
                 )

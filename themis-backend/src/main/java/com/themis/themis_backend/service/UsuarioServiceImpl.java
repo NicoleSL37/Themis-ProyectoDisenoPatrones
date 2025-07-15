@@ -19,11 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
-    private final PasswordEncoder passwordEnncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEnncoder) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
-        this.passwordEnncoder = passwordEnncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
             throw new RuntimeException("El correo electrónico ya está registrado.");
         }
 
-        String contraseniaEncriptada = passwordEnncoder.encode(usuario.getContrasenia());
+        String contraseniaEncriptada = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(contraseniaEncriptada);
         if (usuario.getRoles().isEmpty()) {
 

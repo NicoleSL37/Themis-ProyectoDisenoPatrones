@@ -17,10 +17,10 @@ public class DenunciaSecurity {
         return denunciaRepository.findById(denunciaId).map(denuncia -> {
             if (denuncia instanceof DenunciaPersonaReal) {
                 DenunciaPersonaReal real = (DenunciaPersonaReal) denuncia;
-                // Asegúrate de que tu entidad Usuario tiene un getIdUsuario()
+
                 return real.getUsuario() != null && real.getUsuario().getIdUsuario().equals(userId);
             }
-            return false; // Las denuncias anónimas no tienen propietario
+            return false; 
         }).orElse(false);
     }
 }

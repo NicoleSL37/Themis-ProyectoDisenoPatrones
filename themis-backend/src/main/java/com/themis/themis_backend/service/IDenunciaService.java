@@ -7,20 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IDenunciaService {
-
     DenunciaAnonima crearDenunciaAnonima(DenunciaAnonima denunciaAnonima);
-
     DenunciaPersonaReal crearDenunciaPersonaReal(DenunciaPersonaReal denunciaPersonaReal);
-
     Optional<Denuncia> obtenerDenunciaPorId(Long id);
-
     List<Denuncia> listarTodasLasDenuncias();
-
     List<Denuncia> listarDenunciasAnonimas();
-
     List<Denuncia> listarDenunciasPersonaReal();
-
-    Denuncia actualizarEstadoDenuncia(Long id, String nuevoEstado); // Podrías usar un enum para el estado
-
+    Denuncia actualizarEstadoDenuncia(Long id, String nuevoEstado); 
     void eliminarDenuncia(Long id);
 }
