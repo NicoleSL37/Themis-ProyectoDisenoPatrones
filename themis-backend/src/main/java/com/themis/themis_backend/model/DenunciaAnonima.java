@@ -3,12 +3,14 @@ package com.themis.themis_backend.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 
 import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Table;
 
 @Entity
-@DiscriminatorValue("ANONIMA")
+@Table(name = "denuncias_anonimas_detalles")
+@PrimaryKeyJoinColumn(name = "denuncia_id")
 public class DenunciaAnonima extends Denuncia {
 
     @Column(name = "correo_anonima") // Para diferenciar del campo de persona real si existiera

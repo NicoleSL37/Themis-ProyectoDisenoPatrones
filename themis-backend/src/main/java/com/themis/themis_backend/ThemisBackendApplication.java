@@ -15,13 +15,13 @@ public class ThemisBackendApplication {
         SpringApplication.run(ThemisBackendApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner createInitialUsers(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
-        return (args) -> {
-            if (usuarioRepository.findByCorreoElectronico("admin@gmail.com").isEmpty()) {
-                Usuario admin = new Usuario();
-            }
-        };
-    }
+//    @Bean
+//    public CommandLineRunner createInitialUsers(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+//        return (args) -> {
+//            if (usuarioRepository.findByCorreoElectronico("admin@gmail.com").isEmpty()) {
+//                Usuario admin = new Usuario();
+//            }
+//        };
+//    }
 
 }

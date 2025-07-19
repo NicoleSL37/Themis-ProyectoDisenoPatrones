@@ -9,12 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "denuncias")
+@Table(name = "denuncias_base")
+@Inheritance(strategy = InheritanceType.JOINED)
 
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_denuncia", // Nombre de la columna que diferenciará los tipos
-        discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("BASE_DENUNCIA")
 public abstract class Denuncia {
 
     @Id

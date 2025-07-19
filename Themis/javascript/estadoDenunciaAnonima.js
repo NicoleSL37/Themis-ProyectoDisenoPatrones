@@ -51,8 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         const a = document.createElement('a'); 
 
+        let rutaParaBackend = rutaArchivo;
+            if (rutaArchivo.startsWith('denuncias_anonimas/')) {
+                rutaParaBackend = rutaArchivo.substring('denuncias_anonimas/'.length);
+            }
+
         // NO USAR encodeURIComponent aquí. La ruta debe pasarse tal cual al backend.
-        a.href = urlBase + rutaArchivo; 
+        a.href = urlBase + rutaParaBackend; 
 
         const nombreArchivo = rutaArchivo.substring(rutaArchivo.lastIndexOf('/') + 1);
         a.textContent = nombreArchivo;

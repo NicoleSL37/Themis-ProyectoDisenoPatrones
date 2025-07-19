@@ -2,16 +2,14 @@ package com.themis.themis_backend.controller;
 
 import com.themis.themis_backend.model.DenunciaAnonima;
 import com.themis.themis_backend.service.DenunciaAnonimaService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpHeaders;
+
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.FileNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -87,52 +85,6 @@ public class DenunciaAnonimaController {
         return denuncia.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/archivo/{*rutaRelativaArchivo}")
-    public ResponseEntity<Resource> servirArchivoAdjunto(HttpServletRequest request,
-            @PathVariable String rutaRelativaArchivo) {
-        try {
-            System.out.println("\n--- INICIO servirArchivoAdjunto (Controller Anonima) ---");
-            System.out.println("DEBUG CONTROLLER (Anonima): rutaRelativaArchivo (de @PathVariable): " + rutaRelativaArchivo);
-
-            if (rutaRelativaArchivo == null || rutaRelativaArchivo.isEmpty()) {
-                System.err.println("ERROR CONTROLLER (Anonima): rutaRelativaArchivo es nula o vacía.");
-                return ResponseEntity.badRequest().body(null);
-            }
-
-            Resource resource = denunciaAnonimaService.loadFileAsResource(rutaRelativaArchivo); // Llama al método del servicio corregido
-
-            if (resource.exists() && resource.isReadable()) {
-                String contentType = null;
-                try {
-                    contentType = Files.probeContentType(Paths.get(resource.getURI()));
-                } catch (IOException ex) {
-                    System.err.println("No se pudo determinar el tipo de contenido para el archivo anónimo: " + rutaRelativaArchivo + " - " + ex.getMessage());
-                }
-                if (contentType == null) {
-                    contentType = "application/octet-stream";
-                }
-
-                System.out.println("DEBUG CONTROLLER (Anonima): Archivo encontrado y listo para servir. Content-Type: " + contentType);
-                System.out.println("--- FIN servirArchivoAdjunto (Controller Anonima - ÉXITO) ---\n");
-
-                return ResponseEntity.ok()
-                        .contentType(MediaType.parseMediaType(contentType))
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
-                        .body(resource);
-            } else {
-                System.err.println("ERROR CONTROLLER (Anonima): Archivo NO encontrado o NO legible en la ruta: " + rutaRelativaArchivo);
-                return ResponseEntity.notFound().build();
-            }
-
-        } catch (FileNotFoundException ex) {
-            System.err.println("ERROR CONTROLLER (Anonima): Archivo no encontrado (FileNotFoundException): " + ex.getMessage());
-            return ResponseEntity.notFound().build();
-        } catch (Exception ex) {
-            System.err.println("ERROR CONTROLLER (Anonima): Error inesperado al servir el archivo: " + ex.getMessage());
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {

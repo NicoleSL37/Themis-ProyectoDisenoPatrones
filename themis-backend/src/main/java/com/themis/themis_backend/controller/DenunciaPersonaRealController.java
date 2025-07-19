@@ -1,5 +1,7 @@
 package com.themis.themis_backend.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.themis.themis_backend.dto.DenunciaPersonaRealRequestDTO;
 import com.themis.themis_backend.model.DenunciaPersonaReal;
 import com.themis.themis_backend.service.DenunciaPersonaRealService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,95 +33,54 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 public class DenunciaPersonaRealController {
 
     private final DenunciaPersonaRealService denunciaPersonaRealService;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public DenunciaPersonaRealController(DenunciaPersonaRealService denunciaPersonaRealService) {
+    public DenunciaPersonaRealController(DenunciaPersonaRealService denunciaPersonaRealService, ObjectMapper objectMapper) {
         this.denunciaPersonaRealService = denunciaPersonaRealService;
+        this.objectMapper = objectMapper;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> crearDenunciaPersonaReal(
-            @RequestParam("nombres") String nombres,
-            @RequestParam("apellidoPaterno") String apellidoPaterno,
-            @RequestParam("apellidoMaterno") String apellidoMaterno,
-            @RequestParam("tipoDocumento") String tipoDocumento,
-            @RequestParam("numeroDocumento") String numeroDocumento,
-            @RequestParam("sexo") String sexo,
-            @RequestParam("fechaNacimiento") String fechaNacimientoStr,
-            @RequestParam(value = "fechaEmision", required = false) String fechaEmisionStr,
-            @RequestParam(value = "numeroCelular", required = false) String numeroCelular,
-            @RequestParam(value = "correoElectronico", required = false) String correoElectronico,
-            @RequestParam("autorizoDatos") boolean autorizoDatos,
-            @RequestParam(value = "fechaIncidente", required = false) String fechaIncidenteStr,
-            @RequestParam(value = "horaIncidente", required = false) String horaIncidenteStr,
-            @RequestParam("esAhora") boolean esAhora,
-            @RequestParam("departamento") String departamento,
-            @RequestParam("provincia") String provincia,
-            @RequestParam("distrito") String distrito,
-            @RequestParam("descripcionHechos") String descripcionHechos,
+            @RequestParam("denuncia") String denunciaJson,
             @RequestParam(value = "archivosEvidencia", required = false) List<MultipartFile> archivos
     ) {
         try {
+            
+            DenunciaPersonaRealRequestDTO denunciaDto = objectMapper.readValue(denunciaJson, DenunciaPersonaRealRequestDTO.class);
             DenunciaPersonaReal denuncia = new DenunciaPersonaReal();
 
             // Asignación de datos personales
-            denuncia.setNombres(nombres);
-            denuncia.setApellidoPaterno(apellidoPaterno);
-            denuncia.setApellidoMaterno(apellidoMaterno);
-            denuncia.setTipoDocumento(tipoDocumento);
-            denuncia.setNumeroDocumento(numeroDocumento);
-            denuncia.setSexo(sexo);
+            denuncia.setNombres(denunciaDto.getNombres());
+            denuncia.setApellidoPaterno(denunciaDto.getApellidoPaterno());
+            denuncia.setApellidoMaterno(denunciaDto.getApellidoMaterno());
+            denuncia.setTipoDocumento(denunciaDto.getTipoDocumento());
+            denuncia.setNumeroDocumento(denunciaDto.getNumeroDocumento());
+            denuncia.setSexo(denunciaDto.getSexo());
 
-            // Parseo de fechas (DD/MM/YYYY)
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            try {
-                denuncia.setFechaNacimiento(LocalDate.parse(fechaNacimientoStr, formatter));
-            } catch (DateTimeParseException e) {
-                return ResponseEntity.badRequest().body(Map.of("message", "Formato de fecha de nacimiento inválido. Use DD/MM/YYYY."));
-            }
-
-            if (fechaEmisionStr != null && !fechaEmisionStr.isEmpty()) {
-                try {
-                    denuncia.setFechaEmision(LocalDate.parse(fechaEmisionStr, formatter));
-                } catch (DateTimeParseException e) {
-                    return ResponseEntity.badRequest().body(Map.of("message", "Formato de fecha de emisión inválido. Use DD/MM/YYYY."));
-                }
-            }
-
-            denuncia.setNumeroCelular(numeroCelular);
-            denuncia.setCorreoElectronico(correoElectronico);
-            denuncia.setAutorizoDatos(autorizoDatos);
+            denuncia.setFechaNacimiento(denunciaDto.getFechaNacimiento());
+            denuncia.setFechaEmision(denunciaDto.getFechaEmision());
+            denuncia.setNumeroCelular(denunciaDto.getNumeroCelular());
+            denuncia.setCorreoElectronico(denunciaDto.getCorreoElectronico());
+            denuncia.setAutorizoDatos(denunciaDto.isAutorizoDatos());
 
             // Asignación de datos del incidente
-            denuncia.setEsAhora(esAhora);
-            if (!esAhora) { // Si no es "Ahora", parsear fecha y hora del incidente
-                if (fechaIncidenteStr != null && !fechaIncidenteStr.isEmpty()) {
-                    try {
-                        denuncia.setFechaIncidente(LocalDate.parse(fechaIncidenteStr, formatter));
-                    } catch (DateTimeParseException e) {
-                        return ResponseEntity.badRequest().body(Map.of("message", "Formato de fecha de incidente inválido. Use DD/MM/YYYY."));
-                    }
-                }
-                if (horaIncidenteStr != null && !horaIncidenteStr.isEmpty()) {
-                    try {
-                        // El formato de hora debe ser "HH:MM"
-                        denuncia.setHoraIncidente(LocalTime.parse(horaIncidenteStr));
-                    } catch (DateTimeParseException e) {
-                        return ResponseEntity.badRequest().body(Map.of("message", "Formato de hora de incidente inválido. Use HH:MM."));
-                    }
-                }
-            }
-            denuncia.setDepartamento(departamento);
-            denuncia.setProvincia(provincia);
-            denuncia.setDistrito(distrito);
+            denuncia.setEsAhora(denunciaDto.isEsAhora());
+            denuncia.setFechaIncidente(denunciaDto.getFechaIncidente());
+            denuncia.setHoraIncidente(denunciaDto.getHoraIncidente());
+            
+            denuncia.setDepartamento(denunciaDto.getDepartamento());
+            denuncia.setProvincia(denunciaDto.getProvincia());
+            denuncia.setDistrito(denunciaDto.getDistrito());
             denuncia.setEstado("PENDIENTE");
-            denuncia.setDescripcionHechos(descripcionHechos);
+            denuncia.setDescripcionHechos(denunciaDto.getDescripcionHechos());
 
             DenunciaPersonaReal denunciaGuardada = denunciaPersonaRealService.guardarDenuncia(denuncia, archivos);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Denuncia de persona real registrada con éxito.", "codigoDenuncia", denunciaGuardada.getCodigoDenuncia()));
         } catch (IOException e) {
-            System.err.println("Error al guardar archivos de la denuncia de persona real: " + e.getMessage());
+            System.err.println("Error al procesar JSPN o guardar archivos de la denuncia de persona real: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Error al procesar los archivos adjuntos: " + e.getMessage()));
         } catch (Exception e) {

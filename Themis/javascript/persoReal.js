@@ -45,13 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const denunciaSuccessModal = document.getElementById('denunciaSuccessModal');
     const denunciaSuccessCloseButton = document.querySelector('.denuncia-success-close-button');
     const modalOkButton = document.getElementById('modal-ok-button');
-    const codigoDenunciaDisplay = document.getElementById('copiarCodigoModal');
-
+    const codigoDenunciaDisplay = document.getElementById('codigoDenunciaDisplay');
+    const copiarCodigoButton = document.getElementById('copiarCodigoModal');
     // --- Variables globales para datos ---
     let ubigeoData = []; // Almacenará los datos de ubigeo cargados del JSON
 
-    // --- Funciones auxiliares ---
-
+    const redirectToMainPage = () => {
+        if(denunciaSuccessModal) {
+            denunciaSuccessModal.classList.remove('active');
+        }
+        window.location.href = '../html/paginaPrincipal.html'; // Redirige a la página principal
+    };
     // Función para mostrar una sección y ocultar las demás
     function showSection(sectionToShow) {
         const allSections = document.querySelectorAll('.form-section');
@@ -170,6 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if(fileUploadArea && archivosEvidenciaInput) {
+        fileUploadArea.addEventListener('click', () =>  {
+            console.log('Click en el área de carga de archivos. Activando input de archivos...');
+            archivosEvidenciaInput.click(); // Simula el clic en el input de archivos
+        });
+    }else {
+        console.error('No se encontraron los elementos fileUploadArea o archivosEvidenciaInput. Verifica tus IDs.');
+    }
     // Llamada inicial para cargar los datos de ubigeo cuando el DOM esté listo
     loadUbigeoData();
 
@@ -262,6 +274,34 @@ document.addEventListener('DOMContentLoaded', () => {
             showSection(sectionDatosPersonales);
         });
     }
+    ahoraIncidenteCheckbox.addEventListener('change', () => {
+        const isChecked = ahoraIncidenteCheckbox.checked;
+        fechaIncidenteInput.disabled = isChecked;
+        horaIncidenteInput.disabled = isChecked;
+        if (isChecked) {
+            fechaIncidenteInput.value = ''; // Limpia el campo si se marca "Ahora"
+            horaIncidenteInput.value = ''; // Limpia el campo si se marca "Ahora"
+        }
+    });
+
+    if(archivosEvidenciaInput) {
+        archivosEvidenciaInput.addEventListener('change', (event) => {
+            fileList.innerHTML = ''; // Limpiar la lista de archivos
+            const files = archivosEvidenciaInput.files;
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const listItem = document.createElement('li');
+                    listItem.textContent = file.name;
+                    fileList.appendChild(listItem);
+                }
+            } else {
+                const listItem = document.createElement('li');
+                listItem.textContent = 'No se han seleccionado archivos.';
+                fileList.appendChild(listItem);
+            }
+        });
+    }
 
     // Listener para el botón "Registrar Denuncia" (último paso)
     if (btnRegistrarDenuncia) {
@@ -285,234 +325,113 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // *** INSERTAR AQUÍ: Deshabilitar el botón antes de iniciar el envío ***
             btnRegistrarDenuncia.disabled = true;
-            // Opcional: btnRegistrarDenuncia.textContent = 'Enviando...'; // Puedes cambiar el texto del botón
-
             console.log('Formulario de Denuncia de Persona Real listo para enviar. Preparando FormData...');
 
+            const denunciaData = {
+                fechaIncidente: ahoraIncidenteCheckbox.checked ? null : fechaIncidenteInput.value.trim(),
+                horaIncidente: ahoraIncidenteCheckbox.checked ? null : horaIncidenteInput.value.trim(),
+                esAhora: ahoraIncidenteCheckbox.checked,
+                departamento: departamentoSelect.value,
+                provincia: provinciaSelect.value,
+                distrito: distritoSelect.value, // Corregido aquí también
+                descripcionHechos: descripcionHechosTextarea.value.trim(),
+
+                nombres: nombresInput.value.trim(),
+                apellidoPaterno: apellidoPaternoInput.value.trim(),
+                apellidoMaterno: apellidoMaternoInput.value.trim(),
+                tipoDocumento: hiddenTipoDocumentoSelect.value,
+                numeroDocumento: numeroDocumentoInput.value.trim(),
+                sexo: sexoInput.value,
+                fechaNacimiento: fechaNacimientoInput.value.trim(),
+
+                fechaEmision: fechaEmisionInput.value.trim() || null, // Envía null si está vacío
+                numeroCelular: numeroCelularInput.value.trim() || null, // Envía null si está vacío
+                correoElectronico: correoElectronicoInput.value.trim() || null, // Envía null si está vacío
+                autorizoDatos: autorizoDatosCheckbox.checked
+            }
             // --- Recolección de datos y envío al servidor ---
             const formData = new FormData();
 
-            // Datos de la sección "Datos Personales"
-            formData.append('nombres', nombresInput.value.trim());
-            formData.append('apellidoPaterno', apellidoPaternoInput.value.trim());
-            formData.append('apellidoMaterno', apellidoMaternoInput.value.trim());
-            formData.append('tipoDocumento', hiddenTipoDocumentoSelect.value); // Usa el valor del select oculto
-            formData.append('numeroDocumento', numeroDocumentoInput.value.trim());
-            formData.append('sexo', sexoInput.value.trim());
+            formData.append('denuncia', JSON.stringify(denunciaData)); // Añade los datos de la denuncia como JSON
+            console.log('JSON de datos adjuntado a FormData:', JSON.stringify(denunciaData));
 
-            let fechaNacimientoFormatted = '';
-            if (fechaNacimientoInput && fechaNacimientoInput.value.trim()) {
-                const [year, month, day] = fechaNacimientoInput.value.trim().split('-'); // Divide 'YYYY-MM-DD'
-                fechaNacimientoFormatted = `${day}/${month}/${year}`; // Recompone a 'DD/MM/YYYY'
+            const archivosFiles = archivosEvidenciaInput.files;
+            if (archivosFiles.length > 0) {
+                for (let i = 0; i < archivosFiles.length; i++) {
+                    formData.append('archivosEvidencia', archivosFiles[i]); // Añade cada
+                    console.log(`Archivo añadido: ${archivosFiles[i].name}`);
+                }
+            } else {
+                console.log('No se adjuntaron archivos de evidencia.');
             }
-            formData.append('fechaNacimiento', fechaNacimientoFormatted);
-
-            // Convertir fechaEmision a DD/MM/YYYY (solo si existe y es DNI)
-            let fechaEmisionFormatted = '';
-            // Asegurarse de que el campo de fecha de emisión tiene un valor y que el tipo de documento es DNI
-            if (hiddenTipoDocumentoSelect.value === 'DNI' && fechaEmisionInput && fechaEmisionInput.value.trim()) {
-                const [yearE, monthE, dayE] = fechaEmisionInput.value.trim().split('-'); // Divide 'YYYY-MM-DD'
-                fechaEmisionFormatted = `${dayE}/${monthE}/${yearE}`; // Recompone a 'DD/MM/YYYY'
-            }
-            formData.append('fechaEmision', fechaEmisionFormatted); // Puede ser vacío, el backend lo maneja
-
-            // Campos opcionales
-            formData.append('numeroCelular', numeroCelularInput.value.trim());
-            formData.append('correoElectronico', correoElectronicoInput.value.trim());
-
-            formData.append('autorizoDatos', autorizoDatosCheckbox.checked);
-
-            // Datos de la sección "Detalles del Incidente"
-            formData.append('esAhora', ahoraIncidenteCheckbox.checked);
-
-            let fechaIncidenteFormatted = '';
-            if (fechaIncidenteInput && fechaIncidenteInput.value.trim()) {
-                const [yearI, monthI, dayI] = fechaIncidenteInput.value.trim().split('-');
-                fechaIncidenteFormatted = `${dayI}/${monthI}/${yearI}`;
-            }
-            formData.append('fechaIncidente', fechaIncidenteFormatted);
-            formData.append('horaIncidente', horaIncidenteInput.value.trim());
-
-            formData.append('departamento', departamentoSelect.value);
-            formData.append('provincia', provinciaSelect.value);
-            formData.append('distrito', distritoSelect.value);
-            formData.append('descripcionHechos', descripcionHechosTextarea.value.trim());
-
-            // Archivos de evidencia
-            const files = archivosEvidenciaInput.files;
-            for (let i = 0; i < files.length; i++) {
-                formData.append('archivosEvidencia', files[i]); // 'archivosEvidencia' debe coincidir con el @RequestParam en tu backend
-            }
-
-            // **MUY IMPORTANTE: Esta URL debe coincidir con el @RequestMapping de tu controlador de Spring Boot**
-            const backendUrl = 'http://localhost:8080/api/denuncias-personas-reales';
-
-            console.log('Contenido de FormData antes del envío:');
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
-            console.log('--- Fin de FormData ---');
-
             try {
-                const response = await fetch(backendUrl, {
+                const response = await fetch('http://localhost:8080/api/denuncias-personas-reales', {
                     method: 'POST',
-                    body: formData // No es necesario Content-Type para FormData
+                    body: formData // El navegador establecerá el Content-Type: multipart/form-data automáticamente
                 });
 
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Error HTTP al registrar la denuncia:', response.status, errorText);
-                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-                }
-
-                const data = await response.json();
-                console.log('Denuncia de Persona Real registrada:', data);
-                if (denunciaSuccessModal) {
-                    denunciaSuccessModal.classList.add('active'); // Muestra el modal añadiendo la clase 'active'
-                }
-                if (codigoDenunciaDisplay && data.codigo) { // Asegúrate de que 'data.codigo' es el nombre correcto
-                        codigoDenunciaDisplay.textContent = data.codigo;
+                    const errorData = await response.json();
+                    console.error('Error al registrar denuncia (Respuesta NO OK):', errorData);
+                    alert(`Error al registrar la denuncia: ${errorData.message || response.statusText}`);
+                } else {
+                    const responseData = await response.json();
+                    console.log('Denuncia registrada con éxito:', responseData);
+                    if(codigoDenunciaDisplay) {
+                        codigoDenunciaDisplay.textContent = responseData.codigoDenuncia;
                     }
-
-                let redirectionTimeout; // Variable para almacenar el timeout
-
-                const redirectToMainPage = () => {
-                    clearTimeout(redirectionTimeout); // Limpia cualquier timeout anterior
-                    // Oculta el modal antes de redirigir (opcional, pero buena práctica)
-                    if (denunciaSuccessModal) {
-                        denunciaSuccessModal.classList.remove('active');
+                    if(denunciaSuccessModal){
+                        denunciaSuccessModal.classList.add('active');
                     }
-                    window.location.href = '/html/paginaPrincipal.html'; // Ajusta esta ruta si es necesario
-                };
-                if (denunciaSuccessCloseButton) {
-                    denunciaSuccessCloseButton.onclick = redirectToMainPage;
+                    if(denunciaSuccessCloseButton){
+                        denunciaSuccessCloseButton.removeEventListener('click', redirectToMainPage); // Asegúrate de eliminar el listener anterior
+                        denunciaSuccessCloseButton.addEventListener('click', redirectToMainPage);
+                    }
+                    if(modalOkButton) {
+                        modalOkButton.removeEventListener('click', redirectToMainPage); // Asegúrate de eliminar el listener anterior
+                        modalOkButton.addEventListener('click', redirectToMainPage);
+                    }
                 }
-                if (modalOkButton) {
-                    modalOkButton.onclick = redirectToMainPage;
-                }
-
-                // Opcional: Redirigir automáticamente después de unos segundos si no hacen clic
-                redirectionTimeout = setTimeout(redirectToMainPage, 60000);
-
-                if (codigoDenunciaDisplay) {
-                    codigoDenunciaDisplay.addEventListener('click', () => {
-                        const codigo = codigoDenunciaDisplay.textContent; // Obtiene el texto actual del código
-
-        // Usa la API del portapapeles moderna
-                    navigator.clipboard.writeText(codigo).then(() => {
-                        alert('¡Código copiado al portapapeles!');
-                        console.log('Código copiado:', codigo);
-                    }).catch(err => {
-                        console.error('Error al copiar el código:', err);
-                        alert('No se pudo copiar el código. Por favor, cópialo manualmente.');
-                    });
-                });
-            }
-
             } catch (error) {
-                console.error('Error al registrar la denuncia de Persona Real:', error);
-                alert('Hubo un error al registrar tu denuncia. Por favor, inténtalo de nuevo.');
+                console.error('Error de red o en la solicitud:', error);
+                alert('Ocurrió un error de conexión o inesperado. Por favor, inténtalo de nuevo.');
             } finally {
-                // *** INSERTAR AQUÍ: Re-habilitar el botón cuando la solicitud finalice (éxito o error) ***
-                btnRegistrarDenuncia.disabled = false;
-                btnRegistrarDenuncia.textContent = 'Registrar Denuncia';
-                // Opcional: btnRegistrarDenuncia.textContent = 'Registrar Denuncia'; // Restaura el texto del botón
+                btnRegistrarDenuncia.disabled = false; // Habilitar el botón de nuevo
             }
         });
     }
 
-    // Lógica para el checkbox "Ahora:" (deshabilita Fecha y Hora si está marcado)
-    if (ahoraIncidenteCheckbox && fechaIncidenteInput && horaIncidenteInput) {
-        ahoraIncidenteCheckbox.addEventListener('change', () => {
-            if (ahoraIncidenteCheckbox.checked) {
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const day = String(now.getDate()).padStart(2, '0');
-                const date = `${year}-${month}-${day}`;
-
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const time = `${hours}:${minutes}`;
-
-                fechaIncidenteInput.disabled = true;
-                fechaIncidenteInput.value = date;
-                horaIncidenteInput.disabled = true;
-                horaIncidenteInput.value = time;
-            } else {
-                fechaIncidenteInput.disabled = false;
-                fechaIncidenteInput.value = '';
-                horaIncidenteInput.disabled = false;
-                horaIncidenteInput.value = '';
-            }
+    if (copiarCodigoButton) {
+        copiarCodigoButton.addEventListener('click', () => {
+            const codigo = codigoDenunciaDisplay.textContent; // Obtener el texto del strong
+            navigator.clipboard.writeText(codigo).then(() => {
+                alert('Código copiado al portapapeles: ' + codigo);
+            }).catch(err => {
+                console.error('Error al copiar el código: ', err);
+                alert('No se pudo copiar el código automáticamente. Por favor, cópielo manualmente: ' + codigo);
+            });
         });
     }
 
-    // --- Lógica para la carga de archivos (Drag & Drop y Click) ---
-    if (fileUploadArea && archivosEvidenciaInput && fileList) {
-        // Al hacer click en el área de carga, activa el input de archivo
-        fileUploadArea.addEventListener('click', () => {
-            archivosEvidenciaInput.click();
-        });
-
-        // Manejo de la selección de archivos (cuando se hace click o drag & drop)
+    if(archivosEvidenciaInput) {
         archivosEvidenciaInput.addEventListener('change', (event) => {
-            handleFiles(event.target.files);
-        });
-
-        // Prevenir el comportamiento por defecto de arrastrar y soltar para permitir la carga
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            fileUploadArea.addEventListener(eventName, preventDefaults, false);
-            document.body.addEventListener(eventName, preventDefaults, false); // También en el body para evitar que el navegador abra el archivo
-        });
-
-        // Resaltar el área de carga cuando un archivo es arrastrado sobre ella
-        ['dragenter', 'dragover'].forEach(eventName => {
-            fileUploadArea.addEventListener(eventName, highlight, false);
-        });
-
-        // Remover el resaltado cuando el archivo sale del área
-        ['dragleave', 'drop'].forEach(eventName => {
-            fileUploadArea.addEventListener(eventName, unhighlight, false);
-        });
-
-        // Manejar el evento de "drop" (cuando se suelta un archivo)
-        fileUploadArea.addEventListener('drop', handleDrop, false);
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        function highlight() {
-            fileUploadArea.classList.add('highlight');
-        }
-
-        function unhighlight() {
-            fileUploadArea.classList.remove('highlight');
-        }
-
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            archivosEvidenciaInput.files = files; // Asigna los archivos al input real
-            handleFiles(files);
-        }
-
-        function handleFiles(files) {
-            fileList.innerHTML = ''; // Limpiar lista anterior
+            fileList.innerHTML = ''; // Limpiar la lista de archivos
+            const files = archivosEvidenciaInput.files;
             if (files.length > 0) {
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
-                    const listItem = document.createElement('div');
+                    const listItem = document.createElement('li');
                     listItem.textContent = file.name;
                     fileList.appendChild(listItem);
                 }
             } else {
-                fileList.textContent = 'Ningún archivo seleccionado.'; // Mensaje si no hay archivos
+                const listItem = document.createElement('li');
+                listItem.textContent = 'No se han seleccionado archivos.';
+                fileList.appendChild(listItem);
             }
-        }
-    }
+        });
+    }   
+
+    // --- Manejo del Modal de Éxito ---
 });

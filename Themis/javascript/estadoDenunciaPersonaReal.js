@@ -82,10 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
         denunciaConsultada.rutasArchivos.forEach(rutaRelativaArchivo => {
             const li = document.createElement('li');
             const a = document.createElement('a');
-            const urlBase = "http://localhost:8080/api/denuncias-personas-reales/archivo/";
-            a.href = urlBase + rutaRelativaArchivo;
-            const nombreMostrar = rutaRelativaArchivo.substring(rutaRelativaArchivo.lastIndexOf('/') + 1);
+            const urlBase = "http://localhost:8080/api/denuncias/descargar-archivos/";
+
+            const nombreArchivoParaBackend = rutaRelativaArchivo;
+            a.href = urlBase + nombreArchivoParaBackend;
+
+            const nombreMostrar = nombreArchivoParaBackend;
             a.textContent = nombreMostrar;
+
             a.target = '_blank';
             li.appendChild(a);
             archivosAdjuntosList.appendChild(li);

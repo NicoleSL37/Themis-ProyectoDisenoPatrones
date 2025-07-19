@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("REAL")
+@Table(name = "denuncias_persona_real_detalles")
+@PrimaryKeyJoinColumn(name = "denuncia_id")
 public class DenunciaPersonaReal extends Denuncia {
 
     @Column(name = "nombres", nullable = false)

@@ -117,36 +117,18 @@ public class DenunciaController {
         denuncia.setCorreoElectronico(requestDTO.getCorreoElectronico());
         denuncia.setAutorizoDatos(requestDTO.isAutorizoDatos());
 
-        // <<-- INICIO: CAMBIO CLAVE para asociar el usuario -->>
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
-            if (principal instanceof Usuario) { // Opción 1: Si tu principal es directamente tu entidad Usuario
+            if (principal instanceof Usuario) { 
                 denuncia.setUsuario((Usuario) principal);
-            } else {
-                // Opción 2: Si tu principal es un CustomUserDetails (que envuelve a Usuario o tiene el ID)
-                // Debes adaptar esto a cómo tu UserDetailsService devuelve el principal.
-                // Por ejemplo, si tienes un CustomUserDetails implements UserDetails con un método getUserId():
-                // if (principal instanceof CustomUserDetails) {
-                //     CustomUserDetails userDetails = (CustomUserDetails) principal;
-                //     Usuario usuarioAutenticado = new Usuario(); // Instancia temporal o busca en repo si es necesario
-                //     usuarioAutenticado.setIdUsuario(userDetails.getUserId()); // Asume que getId() o getUserId() está en tu CustomUserDetails
-                //     denuncia.setUsuario(usuarioAutenticado);
-                // } else {
-                //     // Log a warning or throw an exception if principal is not of an expected type
-                //     System.err.println("Advertencia: Tipo de Principal inesperado en autenticación: " + principal.getClass().getName());
-                // }
-                // Por ahora, para evitar errores de compilación, puedes dejarlo como null o añadir una lógica de fallback
-                // **ADAPTA ESTA SECCIÓN A TU IMPLEMENTACIÓN DE UserDetailsService Y UserDetails/Usuario**
-            }
+            } 
         }
-        // <<-- FIN: CAMBIO CLAVE -->>
 
-        // <-- Elimina el try-catch de RuntimeException, el GlobalExceptionHandler se encargará
+
         DenunciaPersonaReal nuevaDenuncia = denunciaService.crearDenunciaPersonaReal(denuncia);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponseDTO(nuevaDenuncia));
     }
 
-    // Helper para mapear campos comunes de Request DTO a Entidad Denuncia (Este método permanece igual)
     private void mapRequestDTOToDenuncia(Object requestDTO, Denuncia denuncia) {
         if (requestDTO instanceof DenunciaAnonimaRequestDTO) {
             DenunciaAnonimaRequestDTO dto = (DenunciaAnonimaRequestDTO) requestDTO;

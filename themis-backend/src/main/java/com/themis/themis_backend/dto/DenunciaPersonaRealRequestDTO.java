@@ -1,5 +1,6 @@
 package com.themis.themis_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,9 +16,11 @@ public class DenunciaPersonaRealRequestDTO {
     private String estado; // Podrías usar un enum para esto
 
     @NotNull(message = "La fecha del incidente no puede ser nula")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaIncidente;
 
     @NotNull(message = "La hora del incidente no puede ser nula")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horaIncidente;
 
     private boolean esAhora;
@@ -56,9 +59,11 @@ public class DenunciaPersonaRealRequestDTO {
     @NotBlank(message = "El sexo no puede estar vacío")
     private String sexo;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "La fecha de nacimiento no puede ser nula")
     private LocalDate fechaNacimiento;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEmision; // Opcional
 
     private String numeroCelular; // Opcional
