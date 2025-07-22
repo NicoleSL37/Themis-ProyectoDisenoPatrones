@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
 
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,9 +18,6 @@ public class DenunciaAnonima extends Denuncia {
     // <<-- Constructor vacío -->>
     public DenunciaAnonima() {
         super();
-        // Puedes setear valores por defecto específicos aquí si no quieres que el frontend lo haga
-        // Por ejemplo, para asegurarte que el prefijo del código es ANON-
-        // setea el campo anonimo a true por defecto
     }
 
     @Override

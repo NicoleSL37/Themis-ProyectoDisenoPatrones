@@ -39,21 +39,19 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
         String contraseniaEncriptada = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(contraseniaEncriptada);
         if (usuario.getRoles().isEmpty()) {
-
+            usuario.setRoles(Set.of(Rol.USUARIO_REGISTRADO));
         }
         return usuarioRepository.save(usuario);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Busca el usuario en tu base de datos usando el UsuarioRepository
-        // Aquí se busca por 'nombreUsuario', pero si tu login usa 'correoElectronico', cámbialo.
-        Usuario usuario = usuarioRepository.findByNombreUsuario(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
 
-        // Construye un objeto UserDetails (de Spring Security) a partir de tu entidad Usuario
+        Usuario usuario = usuarioRepository.findByCorreoElectronico(usernameOrEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + usernameOrEmail));
+
         return new org.springframework.security.core.userdetails.User(
-                usuario.getNombreUsuario(), // Nombre de usuario para Spring Security
+                usuario.getCorreoElectronico(), // Nombre de usuario para Spring Security
                 usuario.getContrasenia(), // Contraseña (Spring Security la comparará con la encriptada)
                 usuario.isHabilitado(), // ¿Está habilitada la cuenta?
                 true, // accountNonExpired: ¿La cuenta no ha expirado? (true por defecto para simplificar)

@@ -1,10 +1,11 @@
 package com.themis.themis_backend.controller;
 
 import com.themis.themis_backend.dto.DenunciaAnonimaRequestDTO;
+import com.themis.themis_backend.dto.DenunciaAnonimaResponseDTO;
 import com.themis.themis_backend.dto.DenunciaPersonaRealRequestDTO;
+import com.themis.themis_backend.dto.DenunciaPersonaRealResponseDTO;
 import com.themis.themis_backend.dto.DenunciaResponseDTO; // Importa la clase base del DTO de respuesta
-import com.themis.themis_backend.dto.DenunciaAnonimaResponseDTO; // Importa los DTOs específicos de respuesta
-import com.themis.themis_backend.dto.DenunciaPersonaRealResponseDTO; // Importa los DTOs específicos de respuesta
+
 import com.themis.themis_backend.exception.ResourceNotFoundException;
 
 import com.themis.themis_backend.model.Denuncia;
@@ -33,65 +34,16 @@ public class DenunciaController {
         this.denunciaService = denunciaService;
     }
 
-    // <<-- Métodos de mapeo de Entidad a DTO de Respuesta -->>
-    private DenunciaResponseDTO toResponseDTO(Denuncia denuncia) {
-        if (denuncia instanceof DenunciaAnonima) {
-            DenunciaAnonima anonima = (DenunciaAnonima) denuncia;
-            DenunciaAnonimaResponseDTO dto = new DenunciaAnonimaResponseDTO();
-            mapCommonFields(denuncia, dto);
-            dto.setCorreo(anonima.getCorreo());
-            return dto;
-        } else if (denuncia instanceof DenunciaPersonaReal) {
-            DenunciaPersonaReal real = (DenunciaPersonaReal) denuncia;
-            DenunciaPersonaRealResponseDTO dto = new DenunciaPersonaRealResponseDTO();
-            mapCommonFields(denuncia, dto);
-            dto.setNombres(real.getNombres());
-            dto.setApellidoPaterno(real.getApellidoPaterno());
-            dto.setApellidoMaterno(real.getApellidoMaterno());
-            dto.setTipoDocumento(real.getTipoDocumento());
-            dto.setNumeroDocumento(real.getNumeroDocumento());
-            dto.setSexo(real.getSexo());
-            dto.setFechaNacimiento(real.getFechaNacimiento());
-            dto.setFechaEmision(real.getFechaEmision());
-            dto.setNumeroCelular(real.getNumeroCelular());
-            dto.setCorreoElectronico(real.getCorreoElectronico());
-            dto.setAutorizoDatos(real.isAutorizoDatos());
-            return dto;
-        }
-        // Considera lanzar una excepción si llega un tipo no reconocido, aunque en herencia es menos común.
-        throw new IllegalArgumentException("Tipo de denuncia no reconocido para mapeo a DTO de respuesta.");
-    }
 
-    // Helper para mapear campos comunes (Este método permanece igual)
-    private void mapCommonFields(Denuncia source, DenunciaResponseDTO target) {
-        target.setId(source.getId());
-        target.setCodigoDenuncia(source.getCodigoDenuncia());
-        target.setEstado(source.getEstado());
-        target.setFechaIncidente(source.getFechaIncidente());
-        target.setHoraIncidente(source.getHoraIncidente());
-        target.setEsAhora(source.isEsAhora());
-        target.setDepartamento(source.getDepartamento());
-        target.setProvincia(source.getProvincia());
-        target.setDistrito(source.getDistrito());
-        target.setDescripcionHechos(source.getDescripcionHechos());
-        target.setRutasArchivos(source.getRutasArchivos());
-        target.setFechaRegistro(source.getFechaRegistro());
-        target.setAnonimo(source.isAnonimo());
-    }
-    // -->>
-
-    // Endpoint para crear una Denuncia Anónima
     @PostMapping("/anonima")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("permitAll()")
     public ResponseEntity<DenunciaResponseDTO> crearDenunciaAnonima(@Valid @RequestBody DenunciaAnonimaRequestDTO requestDTO) {
         DenunciaAnonima denuncia = new DenunciaAnonima();
         mapRequestDTOToDenuncia(requestDTO, denuncia);
-        denuncia.setCorreo(requestDTO.getCorreo());
 
-        // <-- Elimina el try-catch de RuntimeException, el GlobalExceptionHandler se encargará
         DenunciaAnonima nuevaDenuncia = denunciaService.crearDenunciaAnonima(denuncia);
-        return ResponseEntity.status(HttpStatus.CREATED).body(toResponseDTO(nuevaDenuncia));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.convertEntityToResponseDTO(nuevaDenuncia));
     }
 
     // Endpoint para crear una Denuncia de Persona Real
@@ -126,7 +78,7 @@ public class DenunciaController {
 
 
         DenunciaPersonaReal nuevaDenuncia = denunciaService.crearDenunciaPersonaReal(denuncia);
-        return ResponseEntity.status(HttpStatus.CREATED).body(toResponseDTO(nuevaDenuncia));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.convertEntityToResponseDTO(nuevaDenuncia));
     }
 
     private void mapRequestDTOToDenuncia(Object requestDTO, Denuncia denuncia) {
@@ -156,24 +108,74 @@ public class DenunciaController {
             denuncia.setAnonimo(false); // Una denuncia de persona real no es anónima
         }
     }
+    
+    private DenunciaResponseDTO convertEntityToResponseDTO(Denuncia denuncia){
+        if (denuncia instanceof DenunciaAnonima) {
+            DenunciaAnonima anonima = (DenunciaAnonima) denuncia;
+            DenunciaAnonimaResponseDTO dto = new DenunciaAnonimaResponseDTO();
+            // Mapeo manual o usar un BeanUtils.copyProperties si confías en los nombres de los campos
+            dto.setId(anonima.getId());
+            dto.setCodigoDenuncia(anonima.getCodigoDenuncia());
+            dto.setEstado(anonima.getEstado());
+            dto.setFechaIncidente(anonima.getFechaIncidente());
+            dto.setHoraIncidente(anonima.getHoraIncidente());
+            dto.setEsAhora(anonima.isEsAhora());
+            dto.setDepartamento(anonima.getDepartamento());
+            dto.setProvincia(anonima.getProvincia());
+            dto.setDistrito(anonima.getDistrito());
+            dto.setDescripcionHechos(anonima.getDescripcionHechos());
+            dto.setRutasArchivos(anonima.getRutasArchivos());
+            dto.setFechaRegistro(anonima.getFechaRegistro());
+            dto.setAnonimo(anonima.isAnonimo());
+            dto.setCorreo(anonima.getCorreo());
+            return dto;
+        } else if (denuncia instanceof DenunciaPersonaReal) {
+            DenunciaPersonaReal real = (DenunciaPersonaReal) denuncia;
+            DenunciaPersonaRealResponseDTO dto = new DenunciaPersonaRealResponseDTO();
+            dto.setId(real.getId());
+            dto.setCodigoDenuncia(real.getCodigoDenuncia());
+            dto.setEstado(real.getEstado());
+            dto.setFechaIncidente(real.getFechaIncidente());
+            dto.setHoraIncidente(real.getHoraIncidente());
+            dto.setEsAhora(real.isEsAhora());
+            dto.setDepartamento(real.getDepartamento());
+            dto.setProvincia(real.getProvincia());
+            dto.setDistrito(real.getDistrito());
+            dto.setDescripcionHechos(real.getDescripcionHechos());
+            dto.setRutasArchivos(real.getRutasArchivos());
+            dto.setFechaRegistro(real.getFechaRegistro());
+            dto.setAnonimo(real.isAnonimo());
+            dto.setNombres(real.getNombres());
+            dto.setApellidoPaterno(real.getApellidoPaterno());
+            dto.setApellidoMaterno(real.getApellidoMaterno());
+            dto.setTipoDocumento(real.getTipoDocumento());
+            dto.setNumeroDocumento(real.getNumeroDocumento());
+            dto.setSexo(real.getSexo());
+            dto.setFechaNacimiento(real.getFechaNacimiento());
+            dto.setFechaEmision(real.getFechaEmision());
+            dto.setNumeroCelular(real.getNumeroCelular());
+            dto.setCorreoElectronico(real.getCorreoElectronico());
+            dto.setAutorizoDatos(real.isAutorizoDatos());
+            return dto;
+        }
+        throw new IllegalArgumentException("Tipo de denuncia no reconocido para mapeo a DTO de respuesta en el controlador.");
+    
+    }
 
     // Endpoint para obtener una denuncia por ID (puede ser anónima o real)
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR') or (hasRole('USUARIO_REGISTRADO') and @denunciaSecurity.isOwner(#id, authentication.principal.idUsuario))")
     public ResponseEntity<DenunciaResponseDTO> obtenerDenunciaPorId(@PathVariable Long id) {
-        Denuncia denuncia = denunciaService.obtenerDenunciaPorId(id)
+        DenunciaResponseDTO denunciaDTO = denunciaService.obtenerDenunciaPorId(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Denuncia no encontrada con ID: " + id)); // <-- CAMBIO AQUÍ
-        return ResponseEntity.ok(toResponseDTO(denuncia));
+        return ResponseEntity.ok(denunciaDTO);
     }
 
     // Endpoint para listar todas las denuncias (solo para ADMIN)
     @GetMapping
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<DenunciaResponseDTO>> listarTodasLasDenuncias() {
-        List<Denuncia> denuncias = denunciaService.listarTodasLasDenuncias();
-        List<DenunciaResponseDTO> dtoList = denuncias.stream()
-                .map(this::toResponseDTO)
-                .collect(Collectors.toList());
+        List<DenunciaResponseDTO> dtoList = denunciaService.listarTodasLasDenuncias();
         return ResponseEntity.ok(dtoList);
     }
 
@@ -181,10 +183,7 @@ public class DenunciaController {
     @GetMapping("/anonimas")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<DenunciaResponseDTO>> listarDenunciasAnonimas() {
-        List<Denuncia> denuncias = denunciaService.listarDenunciasAnonimas();
-        List<DenunciaResponseDTO> dtoList = denuncias.stream()
-                .map(this::toResponseDTO)
-                .collect(Collectors.toList());
+        List<DenunciaResponseDTO> dtoList = denunciaService.listarDenunciasAnonimas();
         return ResponseEntity.ok(dtoList);
     }
 
@@ -192,10 +191,7 @@ public class DenunciaController {
     @GetMapping("/reales")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<DenunciaResponseDTO>> listarDenunciasPersonaReal() {
-        List<Denuncia> denuncias = denunciaService.listarDenunciasPersonaReal();
-        List<DenunciaResponseDTO> dtoList = denuncias.stream()
-                .map(this::toResponseDTO)
-                .collect(Collectors.toList());
+        List<DenunciaResponseDTO> dtoList = denunciaService.listarDenunciasPersonaReal();
         return ResponseEntity.ok(dtoList);
     }
 
@@ -203,9 +199,8 @@ public class DenunciaController {
     @PatchMapping("/{id}/estado")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<DenunciaResponseDTO> actualizarEstadoDenuncia(@PathVariable Long id, @RequestParam String nuevoEstado) {
-        // <<-- Elimina el try-catch. Asume que el servicio lanzará ResourceNotFoundException -->>
-        Denuncia denunciaActualizada = denunciaService.actualizarEstadoDenuncia(id, nuevoEstado);
-        return ResponseEntity.ok(toResponseDTO(denunciaActualizada));
+        DenunciaResponseDTO denunciaActualizadaDTO = denunciaService.actualizarEstadoDenuncia(id, nuevoEstado);
+        return ResponseEntity.ok(denunciaActualizadaDTO);
     }
 
     // Endpoint para eliminar una denuncia (solo para ADMIN)

@@ -6,16 +6,16 @@ import java.util.Set;
 public class AuthenticationResponse {
 
     private String token;
-    private String username; // O email
+    private String email; // O email
     private Long userId;
     private Set<Rol> roles;
 
     public AuthenticationResponse() {
     }
 
-    public AuthenticationResponse(String token, String username, Long userId, Set<Rol> roles) {
+    public AuthenticationResponse(String token, String email, Long userId, Set<Rol> roles) {
         this.token = token;
-        this.username = username;
+        this.email = email;
         this.userId = userId;
         this.roles = roles;
     }
@@ -28,12 +28,12 @@ public class AuthenticationResponse {
         this.token = token;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getUserId() {

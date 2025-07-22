@@ -2,6 +2,9 @@ package com.themis.themis_backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 @JsonTypeName("REAL")
 public class DenunciaPersonaRealResponseDTO extends DenunciaResponseDTO {
@@ -17,6 +20,29 @@ public class DenunciaPersonaRealResponseDTO extends DenunciaResponseDTO {
     private String numeroCelular;
     private String correoElectronico;
     private boolean autorizoDatos;
+
+    public DenunciaPersonaRealResponseDTO() {
+        super();
+    }
+
+    
+    
+    public DenunciaPersonaRealResponseDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String tipoDocumento, String numeroDocumento, String sexo, LocalDate fechaNacimiento, LocalDate fechaEmision, String numeroCelular, String correoElectronico, boolean autorizoDatos, Long id, String codigoDenuncia, String estado, LocalDate fechaIncidente, LocalTime horaIncidente, boolean esAhora, String departamento, String provincia, String distrito, String descripcionHechos, List<String> rutasArchivos, LocalDateTime fechaRegistro, boolean anonimo) {
+        super(id, codigoDenuncia, estado, fechaIncidente, horaIncidente, esAhora, departamento, provincia, distrito, descripcionHechos, rutasArchivos, fechaRegistro, anonimo);
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.tipoDocumento = tipoDocumento;
+        this.numeroDocumento = numeroDocumento;
+        this.sexo = sexo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaEmision = fechaEmision;
+        this.numeroCelular = numeroCelular;
+        this.correoElectronico = correoElectronico;
+        this.autorizoDatos = autorizoDatos;
+    }
+
+
 
     public String getNombres() {
         return nombres;

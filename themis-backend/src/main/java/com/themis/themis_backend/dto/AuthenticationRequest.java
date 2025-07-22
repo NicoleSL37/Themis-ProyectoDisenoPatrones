@@ -5,22 +5,22 @@ import jakarta.validation.constraints.NotBlank;
 public class AuthenticationRequest {
 
     @NotBlank(message = "El nombre de usuario/correo no puede estar vacío")
-    private String username; // O email, dependiendo de cómo manejes el login
+    private String email; // O email, dependiendo de cómo manejes el login
 
     @NotBlank(message = "La contraseña no puede estar vacía")
     private String password;
 
-    public AuthenticationRequest(String username, String password) {
-        this.username = username;
+    public AuthenticationRequest(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

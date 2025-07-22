@@ -39,17 +39,17 @@ public class AuthController {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getUsername(),
+                            request.getEmail(),
                             request.getPassword()
                     )
             );
         } catch (AuthenticationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
         }
-        com.themis.themis_backend.model.Usuario authenticatedUserEntity = usuarioService.buscarPorNombreUsuario(request.getUsername())
+        com.themis.themis_backend.model.Usuario authenticatedUserEntity = usuarioService.buscarPorCorreoElectronico(request.getEmail())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Usuario autenticado no encontrado en el sistema."));
 
-        UserDetails userDetails = usuarioService.loadUserByUsername(request.getUsername());
+        UserDetails userDetails = usuarioService.loadUserByUsername(request.getEmail());
         String jwtToken = jwtService.generateToken(userDetails);
 
         Long userId = authenticatedUserEntity.getIdUsuario();

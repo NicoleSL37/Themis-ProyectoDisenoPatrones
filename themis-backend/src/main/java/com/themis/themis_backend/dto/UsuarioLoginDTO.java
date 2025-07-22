@@ -5,25 +5,25 @@ import jakarta.validation.constraints.NotBlank;
 public class UsuarioLoginDTO {
 
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
-    private String nombreUsuario;
+    private String email;
 
     @NotBlank(message = "La contrasenia no puede estar vacía")
-    private String contrasenia;
+    private String password;
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

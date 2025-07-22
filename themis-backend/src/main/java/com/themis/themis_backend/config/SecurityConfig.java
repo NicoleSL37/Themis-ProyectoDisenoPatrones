@@ -1,6 +1,7 @@
 package com.themis.themis_backend.config;
 
 import com.themis.themis_backend.security.JwtAuthenticationFilter;
+import com.themis.themis_backend.security.JwtEntryPoint;
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,16 +27,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
+    private final JwtEntryPoint jwtEntryPoint;
 
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, @Lazy UserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, @Lazy UserDetailsService userDetailsService, JwtEntryPoint jwtEntryPoint) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
+        this.jwtEntryPoint = jwtEntryPoint;
     }
 
     @Bean
@@ -61,26 +64,39 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Deshabilita CSRF para APIs REST
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtEntryPoint))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                 // Permite el acceso sin autenticación a las rutas de registro y autenticación
                 .requestMatchers(
                         "/api/usuarios/registro",
                         "/api/auth/**",
-                        "/api/denuncias-anonimas",      // <--- Asegúrate de que estén aquí
                         
-                        "/api/denuncias-anonimas/archivo/**",
+                        "/api/denuncias-anonimas",      // <--- Asegúrate de que estén aquí
                         "/api/denuncias-personas-reales",// <--- Asegúrate de que estén aquí
-                        "/api/admin/**",
                         "/api/consultar-denuncia",
+                        "/api/denuncias-anonimas/archivo/**",
                         "/api/denuncias/descargar-archivos/**",
-                        "/error").permitAll() // <<-- Añade /api/auth/**
+                        
+                        "/api/contenidos/public/**", //Para lo de educación y la Transparencia
+                        "/error"
+                        //"/api/admin/**",
+                ).permitAll() // <<-- Añade /api/auth/**
                 // Permite el acceso a la consola H2 (solo para desarrollo)
-
+                .requestMatchers(
+                        "/api/admin/**",
+                        "/api/usuarios/**",
+                        "/api/denuncias",
+                        
+                        "/api/denuncias/{id}/estado",
+                        "/api/denuncias/{id}/eliminar",
+                        "/api/denuncias/{id}",
+                        "/api/denuncias/pendientes",
+                        
+                        "/api/contenidos/gestion/**" //Para la gestión del contenido
+                ).hasRole("ADMINISTRADOR")
                 // Cualquier otra solicitud requiere autenticación
                 .anyRequest().authenticated()
-                )
-                .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // <<-- 3. Configura la política de sesión sin estado
                 )
                 .authenticationProvider(authenticationProvider()) // <<-- 4. Registra tu AuthenticationProvider
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // <<-- 5. Añade tu filtro JWT antes del filtro de autenticación de usuario/contraseña

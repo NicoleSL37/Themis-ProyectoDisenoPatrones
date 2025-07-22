@@ -65,6 +65,21 @@ public abstract class Denuncia {
         // Constructor por defecto
     }
 
+    public Denuncia(String estado, LocalDate fechaIncidente, LocalTime horaIncidente, boolean esAhora, String departamento, String provincia, String distrito, String descripcionHechos, LocalDateTime fechaRegistro, boolean anonimo) {
+        this.estado = estado;
+        this.fechaIncidente = fechaIncidente;
+        this.horaIncidente = horaIncidente;
+        this.esAhora = esAhora;
+        this.departamento = departamento;
+        this.provincia = provincia;
+        this.distrito = distrito;
+        this.descripcionHechos = descripcionHechos;
+        this.fechaRegistro = fechaRegistro;
+        this.anonimo = anonimo;
+    }
+
+    
+    
     // <<-- Métodos @PrePersist movidos a la clase base -->>
     @PrePersist
     public void generateCodigoAndSetFechaRegistro() {

@@ -10,6 +10,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long idUsuario;
 
     @Column(nullable = false, unique = true, length = 50)
@@ -25,19 +26,23 @@ public class Usuario {
     private boolean habilitado = true; //Si la cuenta esta activa
 
     @ElementCollection(targetClass = Rol.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "usuario_roles", joinColumns = @JoinColumn)
+    @CollectionTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "id_usuario"))
+    @Enumerated(EnumType.STRING)
     private Set<Rol> roles = new HashSet<>();
 
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String nombreUsuario, String contrasenia, String correoElectronico) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombreUsuario, String contrasenia, String correoElectronico, Set<Rol> roles) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.correoElectronico = correoElectronico;
         this.habilitado = true;
-        this.roles = new HashSet<>();
+        this.roles = roles != null ? new HashSet<>(roles) : new HashSet<>();
+    }
+
+    public Usuario(String nombreUsuario, String contrasenia, String correoElectronico) {
+        this(nombreUsuario, contrasenia, correoElectronico, null); 
     }
 
     public Long getIdUsuario() {

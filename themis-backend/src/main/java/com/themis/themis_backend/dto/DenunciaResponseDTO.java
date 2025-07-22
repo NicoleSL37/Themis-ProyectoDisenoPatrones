@@ -36,6 +36,26 @@ public class DenunciaResponseDTO {
     private LocalDateTime fechaRegistro;
     private boolean anonimo;
 
+    public DenunciaResponseDTO() {
+    }
+    
+    public DenunciaResponseDTO(Long id, String codigoDenuncia, String estado, LocalDate fechaIncidente, LocalTime horaIncidente, boolean esAhora, String departamento, String provincia, String distrito, String descripcionHechos, List<String> rutasArchivos, LocalDateTime fechaRegistro, boolean anonimo) {
+        this.id = id;
+        this.codigoDenuncia = codigoDenuncia;
+        this.estado = estado;
+        this.fechaIncidente = fechaIncidente;
+        this.horaIncidente = horaIncidente;
+        this.esAhora = esAhora;
+        this.departamento = departamento;
+        this.provincia = provincia;
+        this.distrito = distrito;
+        this.descripcionHechos = descripcionHechos;
+        this.rutasArchivos = rutasArchivos;
+        this.fechaRegistro = fechaRegistro;
+        this.anonimo = anonimo;
+    }
+
+    
     public Long getId() {
         return id;
     }

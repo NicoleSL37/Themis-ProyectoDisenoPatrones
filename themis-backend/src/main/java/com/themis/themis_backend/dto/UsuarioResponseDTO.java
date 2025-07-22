@@ -2,6 +2,7 @@ package com.themis.themis_backend.dto;
 
 import com.themis.themis_backend.model.Rol;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UsuarioResponseDTO {
 
@@ -9,17 +10,19 @@ public class UsuarioResponseDTO {
     private String nombreUsuario;
     private String correoElectronico;
     private boolean habilitado;
-    private Set<Rol> roles;
+    private Set<String> roles;
 
     public UsuarioResponseDTO() {
     }
 
-    public UsuarioResponseDTO(Long idUsuario, String nombreUsuario, String correoElectronico, boolean habilitado, Set<Rol> roles) {
+    public UsuarioResponseDTO(Long idUsuario, String nombreUsuario, String correoElectronico, boolean habilitado, Set<Rol> rolesEnum) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.correoElectronico = correoElectronico;
         this.habilitado = habilitado;
-        this.roles = roles;
+        this.roles = rolesEnum.stream()
+                .map(rol -> "ROLE_" + rol.name())
+                .collect(Collectors.toSet());
     }
 
     public Long getIdUsuario() {
@@ -54,11 +57,11 @@ public class UsuarioResponseDTO {
         this.habilitado = habilitado;
     }
 
-    public Set<Rol> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Rol> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 
